@@ -10,7 +10,7 @@
 
 ## Description
 ## Description
-This project is designed to support neurodivergent parents by providing a **Community Knowledge and Guidance Hub** and a **Support Event Manager**. Both features come with full CRUD capabilities, along with authentication and authorization to ensure secure access.
+This Mobile app is designed to support neurodivergent parents by providing a **Community Knowledge and Guidance Hub** and a **Support Event Manager**. Both features come with full CRUD capabilities, along with authentication and authorization to ensure secure access.
 
 
 ## Business Features
