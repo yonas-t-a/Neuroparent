@@ -9,7 +9,9 @@
 | Yonas Tessema Achule| (ATR/0419/14) | 
 
 ## Description
-This project provides a **Community Knowledge and Guidance Hub** and a **Support Event Manager**, both with full CRUD capabilities, along with authentication and authorization features. The backend serves a REST API to support these services. Unit, integration, and widget testing are included to maintain software reliability.
+## Description
+This project is designed to support neurodivergent parents by providing a **Community Knowledge and Guidance Hub** and a **Support Event Manager**. Both features come with full CRUD capabilities, along with authentication and authorization to ensure secure access.
+
 
 ## Business Features
 
@@ -21,7 +23,7 @@ This project provides a **Community Knowledge and Guidance Hub** and a **Support
 #### Retrieve
 - Users can browse tips in a list or grid view.
 - Filter by category/tags.
-- Search by keywords.
+- Search by keywords
 
 #### Update
 - Writers can edit their own tips.
