@@ -18,3 +18,8 @@ MySQL_USER = 'your_username' # add your username
 MySQL_PASSWORD = 'your_password'# add your password
 MySQL_DATABASE = 'neuroparent'
 ```
+
+Then ceate a neuroparent on your local mysql database
+```
+CREATE DATABASE neuroparent
+```
