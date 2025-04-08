@@ -15,3 +15,8 @@ MySQL_USER = 'root'
 MySQL_PASSWORD = 'yourPassord' #add your mysql_password
 MySQL_DATABASE = 'NeuroParent_DB'
 ```
+
+Run the following on your SQL first befor starting the project
+```
+CREATE DATABASE NeuroParent_DB;
+```
