@@ -8,6 +8,10 @@ import {
 } from '../../controller/userEventController.js';
 
 const router = express.Router();
+router.route('/')
+    .get(getUserEvent)
+    .post(createUserEvent);
+
 
 
 export default router;
