@@ -50,3 +50,15 @@ export async function updateUserEvent(req,res){
         res.status(500).json({ error: "Error updating user event" });
     }
 }
+export async function deleteUserEvent(req,res){
+    const { id } = req.params;
+    try {
+        const deletedUserEvent = await userEventModel.deleteUserEvent(id);
+        if (!deletedUserEvent) {
+            return res.status(404).json({ message: "User event not found" });
+        }
+        res.status(200).json({ message: "User event deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "Error deleting user event" });
+    }
+}
