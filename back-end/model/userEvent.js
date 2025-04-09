@@ -21,5 +21,9 @@ const userEventModel = {
         return result;
     },
 
+    async deleteUserEvent(id) {
+        const [result] = await pool.query('DELETE FROM user_event WHERE user_event_id = ?', [id]);
+        return result;
+    }
 };
 export default userEventModel;
