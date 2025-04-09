@@ -34,3 +34,19 @@ export async function createUserEvent(req,res){
         res.status(500).json({ error: "Error creating user event" });
     }
 }
+export async function updateUserEvent(req,res){
+    const { id } = req.params;
+    const { user_id, event_id } = req.body;
+    if (!user_id || !event_id) {
+        return res.status(400).json({ error: "All fields are required" });
+    }
+    try {
+        const updatedUserEvent = await userEventModel.updateUserEvent(id, { user_id, event_id });
+        if (!updatedUserEvent) {
+            return res.status(404).json({ message: "User event not found" });
+        }
+        res.status(200).json(updatedUserEvent);
+    } catch (error) {
+        res.status(500).json({ error: "Error updating user event" });
+    }
+}
