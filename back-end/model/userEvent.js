@@ -11,5 +11,9 @@ const userEventModel = {
         return rows[0];
     },
 
+    async createUserEvent(userEvent) {
+        const [result] = await pool.query('INSERT INTO user_event SET ?', [userEvent]);
+        return result;
+    },
 };
 export default userEventModel;
