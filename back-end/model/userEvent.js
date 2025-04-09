@@ -15,5 +15,11 @@ const userEventModel = {
         const [result] = await pool.query('INSERT INTO user_event SET ?', [userEvent]);
         return result;
     },
+
+    async updateUserEvent(id, userEvent) {
+        const [result] = await pool.query('UPDATE user_event SET ? WHERE user_event_id = ?', [userEvent, id]);
+        return result;
+    },
+
 };
 export default userEventModel;
