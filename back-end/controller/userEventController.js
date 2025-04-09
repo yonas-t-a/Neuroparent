@@ -22,3 +22,15 @@ export async function getUserEventById(req,res){
         res.status(500).json({ error: "Error fetching user event" });
     }
 }
+export async function createUserEvent(req,res){
+    const { user_id, event_id } = req.body;
+    if (!user_id || !event_id) {
+        return res.status(400).json({ error: "All fields are required" });
+    }
+    try {
+        const newUserEvent = await userEventModel.createUserEvent({ user_id, event_id });
+        res.status(201).json(newUserEvent);
+    } catch (error) {
+        res.status(500).json({ error: "Error creating user event" });
+    }
+}
