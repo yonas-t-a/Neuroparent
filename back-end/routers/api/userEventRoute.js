@@ -6,3 +6,8 @@ import {
   updateUserEvent,
   deleteUserEvent
 } from '../../controller/userEventController.js';
+
+const router = express.Router();
+
+
+export default router;
