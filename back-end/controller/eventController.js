@@ -12,6 +12,9 @@ export async function getEvent(req, res) {
 
 
 
+// Fetch a single event by its ID.
+// Returns 404 if the event is not found, or 500 on server error.
+
 export async function getEventById(req, res) {
     const { id } = req.params;
     try {
