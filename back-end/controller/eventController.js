@@ -97,6 +97,10 @@ export async function deleteEvent(req, res) {
 
 
 
+
+// Retrieve all events matching a given category.
+// Returns 404 if no events are found, or 500 on server error.
+
 export async function getEventByCategory(req, res) {
     const { category } = req.params;
     try {
