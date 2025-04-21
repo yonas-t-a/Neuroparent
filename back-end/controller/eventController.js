@@ -50,7 +50,8 @@ export async function createEvent(req, res) {
 
 
 
-
+// Updates an existing event by ID.
+// Validates that all required fields (title, description, date, time, location, category) are present in the request body.
 export async function updateEvent(req, res) {
     // Validate the request body
     const { id } = req.params;
