@@ -30,7 +30,8 @@ export async function getEventById(req, res) {
 
 
 
-
+// Handles the creation of a new event.
+// Validates that all required fields (title, description, date, time, location, category) are provided.
 export async function createEvent(req, res) {
     // Validate the request body
     const { title, description, date, time, location, category } = req.body;
