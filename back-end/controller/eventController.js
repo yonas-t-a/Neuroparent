@@ -77,6 +77,8 @@ export async function updateEvent(req, res) {
 
 
 
+//  Deletes an existing event by ID.
+//  Retrieves the event ID from the request parameters and attempts to delete it using the eventModel.
 export async function deleteEvent(req, res) {
     const { id } = req.params;
     try {
