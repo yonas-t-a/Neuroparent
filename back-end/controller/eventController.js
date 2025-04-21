@@ -148,6 +148,14 @@ export async function getEventByDate(req, res) {
 
 
 
+/**
+ * Retrieves events for a specific location.
+ * Extracts the location from the request parameters and fetches the events from the eventModel.
+ * If no events are found for the specified location, returns a 404 status with an error message.
+ * On success, returns a 200 status with the list of events for the given location.
+ * Handles any internal errors by returning a 500 status.
+ */
+
 export async function getEventByLocation(req, res) {
     const { location } = req.params;
     try {
