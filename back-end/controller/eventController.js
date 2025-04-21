@@ -1,5 +1,6 @@
 import eventModel from "../model/event.js";
 
+// Controller function to fetch all events
 export async function getEvent(req, res) {
     try {
         const events = await eventModel.getEvent();
