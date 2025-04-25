@@ -1,3 +1,4 @@
+
 import eventModel from "../model/event.js";
 
 export async function getEvent(req, res) {
@@ -8,9 +9,6 @@ export async function getEvent(req, res) {
         res.status(500).json({ error: "Error fetching events" });
     }
 }
-
-
-
 export async function getEventById(req, res) {
     const { id } = req.params;
     try {
@@ -23,29 +21,19 @@ export async function getEventById(req, res) {
         res.status(500).json({ error: "Error fetching event" });
     }
 }
-
-
-
-
 export async function createEvent(req, res) {
     // Validate the request body
     const { title, description, date, time, location, category } = req.body;
-    if ([title, description, date, time, location, category].some(field => !field?.trim())) {
+    if (!title || !description || !date || !time || !location || !category) {
         return res.status(400).json({ error: "All fields are required" });
-    }    
+    }
     try {
         const newEvent = await eventModel.createEvent(req.body);
         res.status(201).json(newEvent);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Error creating event" })
-
+        res.status(500).json({ error: "Error creating event" });
     }
 }
-
-
-
-
 export async function updateEvent(req, res) {
     // Validate the request body
     const { id } = req.params;
@@ -54,9 +42,7 @@ export async function updateEvent(req, res) {
         return res.status(400).json({ error: "All fields are required" });
     }
     try {
-        const { title, description, date, time, location, category } = req.body;
-        const updatedEvent = await eventModel.updateEvent(id, { title, description, date, time, location, category });
-
+        const updatedEvent = await eventModel.updateEvent(id, req.body);
         if (updatedEvent.affectedRows === 0) {
             return res.status(404).json({ error: "Event not found" });
         }
@@ -65,12 +51,6 @@ export async function updateEvent(req, res) {
         res.status(500).json({ error: "Error updating event" });
     }
 }
-
-
-
-
-
-
 export async function deleteEvent(req, res) {
     const { id } = req.params;
     try {
@@ -83,12 +63,6 @@ export async function deleteEvent(req, res) {
         res.status(500).json({ error: "Error deleting event" });
     }
 }
-
-
-
-
-
-
 export async function getEventByCategory(req, res) {
     const { category } = req.params;
     try {
@@ -101,12 +75,6 @@ export async function getEventByCategory(req, res) {
         res.status(500).json({ error: "Error fetching events by category" });
     }
 }
-
-
-
-
-
-
 export async function getEventByDate(req, res) {
     const { date } = req.params;
     try {
@@ -119,14 +87,6 @@ export async function getEventByDate(req, res) {
         res.status(500).json({ error: "Error fetching events by date" });
     }
 }
-
-
-
-
-
-
-
-
 export async function getEventByLocation(req, res) {
     const { location } = req.params;
     try {
