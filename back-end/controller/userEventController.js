@@ -2,7 +2,7 @@
 
 import userEventModel from "../model/userEvent.js";
 
-export async function getUserEvent(req,req){
+export async function getUserEvent(req,res){
     try {
         const userEvents = await userEventModel.getUserEvent();
         res.status(200).json(userEvents);
@@ -23,6 +23,7 @@ export async function getUserEventById(req,res){
     }
 }
 export async function createUserEvent(req,res){
+    // Validate the request body
     const { user_id, event_id } = req.body;
     if (!user_id || !event_id) {
         return res.status(400).json({ error: "All fields are required" });
