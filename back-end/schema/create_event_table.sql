@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS event(
     event_category VARCHAR(100) NOT NULL,
     creator_id INT,
     event_status BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (creator_id) REFERENCES admin(admin_id)
+    FOREIGN KEY (creator_id) REFERENCES user(user_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );

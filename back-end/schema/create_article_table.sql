@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS article(
     article_image VARCHAR(255) NOT NULL,
     article_category VARCHAR(100) NOT NULL,
     article_creator_id INT,
-    FOREIGN KEY (article_creator_id) REFERENCES admin(admin_id)
+    FOREIGN KEY (article_creator_id) REFERENCES user(user_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
