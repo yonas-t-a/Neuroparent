@@ -94,4 +94,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 
+//    
+    implementation ("com.google.code.gson:gson:2.8.8")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
 }
