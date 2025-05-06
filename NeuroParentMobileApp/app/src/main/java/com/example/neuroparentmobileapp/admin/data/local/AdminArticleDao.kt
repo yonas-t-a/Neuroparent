@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.neuroparentmobileapp.domain.model.AdminArticle
+import retrofit2.http.Query
 
 @Dao
 interface AdminArticleDao {
