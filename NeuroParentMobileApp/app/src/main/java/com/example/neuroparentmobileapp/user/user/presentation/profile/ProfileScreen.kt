@@ -116,6 +116,16 @@ fun ProfileScreen(onEditClick: () -> Unit) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-
+        // Edit Profile Button
+        Button(
+            onClick = onEditClick,
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE89A9A)),
+            shape = RoundedCornerShape(20.dp),
+            modifier = Modifier
+                .fillMaxWidth(0.5f)
+                .height(45.dp)
+        ) {
+            Text(text = "Edit Profile")
+        }
     }
 }
