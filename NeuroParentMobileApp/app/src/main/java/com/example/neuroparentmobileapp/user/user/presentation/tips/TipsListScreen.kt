@@ -136,3 +136,20 @@ fun ColumnItem(
     }
 }
 
+@Composable
+fun FilterChip(text: String, isSelected: Boolean, onClick: () -> Unit) {
+    Surface(
+        color = if (isSelected) MaterialTheme.colorScheme.primary else Color(0xFFE3EBF5),
+        shape = MaterialTheme.shapes.medium,
+        modifier = Modifier
+            .padding(end = 8.dp)
+            .clickable { onClick() }
+    ) {
+        Text(
+            text = text,
+            color = if (isSelected) Color.White else Color.Black,
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            fontSize = 14.sp
+        )
+    }
+}
