@@ -74,4 +74,12 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
     implementation ("androidx.lifecycle:lifecycle-common-java8:2.8.7")
 
+    // Networking
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
+
 }
