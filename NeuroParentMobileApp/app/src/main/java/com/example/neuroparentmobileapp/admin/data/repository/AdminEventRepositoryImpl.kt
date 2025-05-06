@@ -11,5 +11,11 @@ class AdminEventRepositoryImpl(
         apiService.createEvent(event)
     }
 
-   
+    override suspend fun updateEvent(id: Int, event: AdminEvent) {
+        apiService.updateEvent(id, event)
+    }
+
+    override suspend fun deleteEvent(id: Int) {
+        apiService.deleteEvent(id)
+    }
 }
