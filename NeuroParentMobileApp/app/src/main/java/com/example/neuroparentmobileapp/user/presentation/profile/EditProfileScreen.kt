@@ -1,4 +1,4 @@
-package com.example.profilepage.Screen
+package com.example.neuroparentmobileapp.user.presentation.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
