@@ -87,9 +87,34 @@ fun ProfileScreen(onEditClick: () -> Unit) {
 
         Spacer(modifier = Modifier.height(12.dp))
 
+        // Email Field
+        OutlinedTextField(
+            value = email,
+            onValueChange = { email = it },
+            enabled = false,
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .background(Color(0xFFE8F0FE), RoundedCornerShape(8.dp)),
+            shape = RoundedCornerShape(8.dp),
+        )
 
+        Spacer(modifier = Modifier.height(12.dp))
 
+        // Password Field
+        OutlinedTextField(
+            value = password,
+            onValueChange = { password = it },
+            enabled = false,
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .background(Color(0xFFE8F0FE), RoundedCornerShape(8.dp)),
+            shape = RoundedCornerShape(8.dp),
+        )
 
+        Spacer(modifier = Modifier.height(24.dp))
 
 
     }
