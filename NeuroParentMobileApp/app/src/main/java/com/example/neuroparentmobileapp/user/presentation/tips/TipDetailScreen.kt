@@ -1,4 +1,4 @@
-package com.example.usertiptricks.screens
+package com.example.neuroparentmobileapp.user.presentation.tips
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
