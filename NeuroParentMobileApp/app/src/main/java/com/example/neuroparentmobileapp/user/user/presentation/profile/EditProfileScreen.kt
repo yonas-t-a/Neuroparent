@@ -71,6 +71,53 @@ fun ProfileScreenEdit(onBack: () -> Unit) {
             fontWeight = FontWeight.Bold
         )
 
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // Name Field
+        OutlinedTextField(
+            value = name,
+            onValueChange = { name = it },
+            enabled = true,
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .background(Color(0xFFE8F0FE), RoundedCornerShape(8.dp)),
+            shape = RoundedCornerShape(8.dp),
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // New Password Field
+        OutlinedTextField(
+            value = newPasswoed,
+            onValueChange = { newPasswoed = it },
+            enabled = true,
+            label = { Text("Edit Password") },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .background(Color(0xFFE8F0FE), RoundedCornerShape(8.dp)),
+            shape = RoundedCornerShape(8.dp),
+        )
+
+        Spacer(modifier = Modifier.height(80.dp))
+
+        // Old Password Field
+        OutlinedTextField(
+            value = oldPassword,
+            onValueChange = { oldPassword = it },
+            enabled = true,
+            label = { Text("Verify with Previous Password") },
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .background(Color(0xFFE8F0FE), RoundedCornerShape(8.dp)),
+            shape = RoundedCornerShape(8.dp),
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
 
     }
 }
