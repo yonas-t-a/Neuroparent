@@ -73,7 +73,19 @@ fun ProfileScreen(onEditClick: () -> Unit) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
+        // Name Field
+        OutlinedTextField(
+            value = name,
+            onValueChange = { name = it },
+            enabled = false,
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .background(Color(0xFFE8F0FE), RoundedCornerShape(8.dp)),
+            shape = RoundedCornerShape(8.dp),
+        )
 
+        Spacer(modifier = Modifier.height(12.dp))
 
 
 
