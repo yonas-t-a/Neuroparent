@@ -24,7 +24,7 @@ export async function login(req, res) {
             JWT_SECRET,
             { expiresIn: '1d' }
         );
-
+        
         res.status(200).json({ token });
     } catch (error) {
         res.status(500).json({ error: "Login failed" });
