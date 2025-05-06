@@ -60,7 +60,84 @@ fun MainScreen(
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
+    var searchQuery by remember { mutableStateOf("") }
+    var selectedCategory by remember { mutableStateOf("All") }
 
+    val categories = listOf("All", "ADHD", "Autism", "Dyslexia", "Anxiety", "Depression")
+
+    val filteredItems = remember(searchQuery) {
+        articleTitle.withIndex()
+            .filter { it.value.contains(searchQuery, ignoreCase = true) }
+            .map { it.index }
+    }
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding( start = 16.dp, bottom = 0.dp, end = 16.dp, top = 16.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.arrow_back_icon),
+                contentDescription = "Back",
+                modifier = Modifier.size(24.dp)
+            )
+            Text(
+                text = "Tips & Tricks",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(start = 8.dp) // small space between icon and text
+            )
+        }
+        OutlinedTextField(
+            value = searchQuery,
+            onValueChange = { searchQuery = it },
+            label = { Text("Search tips") },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = "Search Icon"
+                )
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = Color(0xFFE3EBF5),
+                unfocusedContainerColor = Color(0xFFE3EBF5)
+            )
+        )
+        // Horizontal Category Buttons
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+        ) {
+            items(categories) { category ->   // here is the line that has a problem, red line on categories
+                FilterChip(
+                    text = category.toString(),
+                    isSelected =  false,    // selectedCategory == category,
+                    onClick = { selectedCategory = category.toString() }
+                )
+            }
+        }
+
+        LazyColumn(contentPadding = PaddingValues(16.dp)) {
+            val itemCount = minOf(imageId.size, articleTitle.size, articleLittleDescription.size)
+
+            items(itemCount) {
+                ColumnItem(
+                    modifier,
+                    painter = imageId,
+                    articleTitle = articleTitle,
+                    articleLittleDescription = articleLittleDescription,
+                    itemIndex = it,
+                    navController = navController
+                )
+            }
+        }
+    }
 
 }
 
