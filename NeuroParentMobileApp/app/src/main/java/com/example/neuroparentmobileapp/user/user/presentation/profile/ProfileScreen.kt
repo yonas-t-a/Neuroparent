@@ -62,9 +62,16 @@ fun ProfileScreen(onEditClick: () -> Unit) {
             )
         }
 
+        Spacer(modifier = Modifier.height(16.dp))
 
+        // App Name
+        Text(
+            text = "NeuroParent",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold
+        )
 
-
+        Spacer(modifier = Modifier.height(24.dp))
 
 
 
