@@ -85,9 +85,6 @@ dependencies {
     // coil image loader
     implementation("io.coil-kt:coil-compose:1.4.0")
 
-    // Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.7")
-
     // Kotlin components
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${libs.versions.kotlin.get()}")
 
@@ -97,5 +94,21 @@ dependencies {
 //    
     implementation ("com.google.code.gson:gson:2.8.8")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+//    Navigation
+    val nav_version = "2.8.9"
+
+    // Jetpack Compose integration
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+
+    // Views/Fragments integration
+    implementation("androidx.navigation:navigation-fragment:$nav_version")
+    implementation("androidx.navigation:navigation-ui:$nav_version")
+
+    // Feature module support for Fragments
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
+    
+    // JSON serialization library, works with the Kotlin serialization plugin
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 
 }
