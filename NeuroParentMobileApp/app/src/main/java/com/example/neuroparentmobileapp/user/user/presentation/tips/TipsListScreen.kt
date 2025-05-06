@@ -52,7 +52,17 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.usertiptricks.R
 
+@Composable
+fun MainScreen(
+    imageId: Array<Int>,
+    articleTitle: Array<String>,
+    articleLittleDescription: Array<String>,
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
 
+
+}
 
 
 @Composable
