@@ -1,6 +1,6 @@
-package com.example.neuroparentmobileapp.data.repository
+package com.example.neuroparentmobileapp.admin.data.repository
 
-import com.example.neuroparentmobileapp.data.remote.AdminEventApiService
+import com.example.neuroparentmobileapp.admin.data.remote.AdminEventApiService
 import com.example.neuroparentmobileapp.domain.model.AdminEvent
 import com.example.neuroparentmobileapp.domain.repository.AdminEventRepository
 

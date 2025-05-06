@@ -19,9 +19,9 @@
 //         apiService.deleteArticle(id)
 //     }
 // }
-package com.example.neuroparentmobileapp.data.repository
+package com.example.neuroparentmobileapp.admin.data.repository
 
-import com.example.neuroparentmobileapp.data.remote.AdminArticleApiService
+import com.example.neuroparentmobileapp.admin.data.remote.AdminArticleApiService
 import com.example.neuroparentmobileapp.domain.model.AdminArticle
 import com.example.neuroparentmobileapp.domain.repository.AdminArticleRepository
 

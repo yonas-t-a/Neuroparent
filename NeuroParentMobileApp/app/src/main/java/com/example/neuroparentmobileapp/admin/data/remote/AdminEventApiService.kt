@@ -15,7 +15,7 @@
 //     suspend fun deleteEvent(@Path("id") id: String)
 // }
 
-package com.example.neuroparentmobileapp.data.remote
+package com.example.neuroparentmobileapp.admin.data.remote
 
 import com.example.neuroparentmobileapp.domain.model.AdminEvent
 import retrofit2.http.*

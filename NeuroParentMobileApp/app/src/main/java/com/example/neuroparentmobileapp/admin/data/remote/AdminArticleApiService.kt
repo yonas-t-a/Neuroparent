@@ -29,18 +29,18 @@
 //     @DELETE("articles/{id}")
 //     suspend fun deleteArticle(@Path("id") id: String)
 // }
-package com.example.neuroparentmobileapp.data.remote
+package com.example.neuroparentmobileapp.admin.data.remote
 
-import com.example.neuroparentmobileapp.domain.model.AdminEvent
+import com.example.neuroparentmobileapp.domain.model.AdminArticle
 import retrofit2.http.*
 
-interface AdminEventApiService {
-    @POST("events")
-    suspend fun createEvent(@Body event: AdminEvent)
+interface AdminArticleApiService {
+    @POST("articles")
+    suspend fun createArticle(@Body article: AdminArticle)
 
-    @PUT("events/{id}")
-    suspend fun updateEvent(@Path("id") id: Int, @Body event: AdminEvent)
+    @PUT("articles/{id}")
+    suspend fun updateArticle(@Path("id") id: Int, @Body article: AdminArticle)
 
-    @DELETE("events/{id}")
-    suspend fun deleteEvent(@Path("id") id: Int)
+    @DELETE("articles/{id}")
+    suspend fun deleteArticle(@Path("id") id: Int)
 }

@@ -1,4 +1,4 @@
-package com.example.neuroparentmobileapp.data.local
+package com.example.neuroparentmobileapp.admin.data.local
 
 import androidx.room.Dao
 import androidx.room.Insert
