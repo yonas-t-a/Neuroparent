@@ -1,4 +1,4 @@
-package com.example.neuroparentmobileapp.domain.model
+package com.example.neuroparentmobileapp.user.domain.model
 
 data class Event(
     val id: Int,
