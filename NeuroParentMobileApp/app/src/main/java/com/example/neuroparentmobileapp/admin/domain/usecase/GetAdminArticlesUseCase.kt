@@ -9,13 +9,19 @@ sealed class Resource<out T> {
     object Loading : Resource<Nothing>()
 }
 
-class UpdateArticleUseCase(private val repository: AdminArticleRepository) {
-    suspend operator fun invoke(id: Int, article: AdminArticle, token: String, image: ByteArray?): Resource<Unit> {
+class GetAdminArticlesUseCase(private val repository: AdminArticleRepository) {
+    suspend operator fun invoke(token: String): Resource<List<AdminArticle>> {
         return try {
-            repository.updateArticle(id, article, token, image)
-            Resource.Success(Unit)
+            Resource.Success(repository.getAllArticles(token))
         } catch (e: Exception) {
             Resource.Error(e.message ?: "Unknown error")
         }
     }
-}
+    suspend fun byAdmin(adminId: Int, token: String): Resource<List<AdminArticle>> {
+        return try {
+            Resource.Success(repository.getArticlesByAdmin(adminId, token))
+        } catch (e: Exception) {
+            Resource.Error(e.message ?: "Unknown error")
+        }
+    }
+} 
