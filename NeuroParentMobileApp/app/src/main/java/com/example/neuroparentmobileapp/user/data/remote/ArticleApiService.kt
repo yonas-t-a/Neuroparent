@@ -1,6 +1,8 @@
-package user.data.remote
+package com.example.neuroparentmobileapp.user.data.remote
 
-import user.data.remote.dto.ArticleDto
+
+
+import com.example.neuroparentmobileapp.user.data.remote.dto.ArticleDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 

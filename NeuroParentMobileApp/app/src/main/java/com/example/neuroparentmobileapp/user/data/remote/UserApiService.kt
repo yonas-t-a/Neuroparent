@@ -1,22 +1,24 @@
-package
+package com.example.neuroparentmobileapp.user.data.remote
 
-import user.data.remote.dto.UserDto
+
+import com.example.neuroparentmobileapp.user.data.remote.dto.UserProfileDto
+import com.example.neuroparentmobileapp.user.domain.model.UserProfile
 import retrofit2.http.*
 
 interface UserApiService {
 
     @GET("users")
-    suspend fun getAllUsers(): List<UserDto> // admin only
+    suspend fun getAllUsers(): List<UserProfileDto> // admin only
 
     @GET("users/{id}")
-    suspend fun getUserById(@Path("id") id: String): UserDto
+    suspend fun getUserById(@Path("id") id: Int): UserProfileDto
 
     @POST("users")
-    suspend fun createUser(@Body user: UserDto): UserDto
+    suspend fun createUser(@Body user: UserProfileDto): UserProfileDto
 
     @PUT("users/{id}")
-    suspend fun updateUser(@Path("id") id: String, @Body user: UserDto): UserDto
+    suspend fun updateUser(@Path("id") id: Int, @Body user: UserProfile): UserProfileDto
 
     @DELETE("users/{id}")
-    suspend fun deleteUser(@Path("id") id: String)
+    suspend fun deleteUser(@Path("id") id: Int)
 }

@@ -1,8 +1,13 @@
-package user.data.remote
+package com.example.neuroparentmobileapp.user.data.remote
 
-import user.data.remote.dto.EventDto
+
+import com.example.neuroparentmobileapp.user.data.remote.dto.EventDto
+import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface EventApiService {
 
@@ -20,4 +25,19 @@ interface EventApiService {
 
     @GET("events/location/{location}")
     suspend fun getEventsByLocation(@Path("location") location: String): List<EventDto>
+
+    @GET("userEvents")
+    suspend fun getUserEvents(): List<EventDto>
+
+    @POST("userEvents")
+    suspend fun registerForEvent(
+        @Query("user_id") userId: Int,
+        @Query("event_id") eventId: Int
+    )
+
+    @POST("userEvents/cancel")
+    suspend fun cancelRegistration(
+        @Query("user_id") userId: Int,
+        @Query("event_id") eventId: Int
+    )
 }
