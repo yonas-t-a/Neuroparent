@@ -1,10 +1,10 @@
-package com.example.neuroparentmobileapp.data.local
+package com.example.neuroparentmobileapp.user.data.local
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.neuroparentmobileapp.domain.model.Article
+import com.example.neuroparentmobileapp.user.domain.model.Article
 
 @Dao
 interface ArticleDao {
