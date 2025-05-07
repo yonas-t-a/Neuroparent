@@ -2,7 +2,6 @@ package com.example.neuroparentmobileapp.auth.presentation.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.neuroparentmobileapp.auth.domain.model.AuthUser
 import com.example.neuroparentmobileapp.auth.domain.usecase.RegisterUseCase
 import com.example.neuroparentmobileapp.auth.domain.usecase.ValidateCredentialsUseCase
 import com.example.neuroparentmobileapp.auth.data.repository.Resource
@@ -17,7 +16,7 @@ data class SignUpUiState(
     val password: String = "",
     val isLoading: Boolean = false,
     val error: String? = null,
-    val user: AuthUser? = null
+    val successMessage: String? = null
 )
 
 class SignUpViewModel(
@@ -48,10 +47,10 @@ class SignUpViewModel(
             return
         }
         viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoading = true, error = null)
+            _uiState.value = _uiState.value.copy(isLoading = true, error = null, successMessage = null)
             when (val result = registerUseCase(name, email, password)) {
                 is Resource.Success -> {
-                    _uiState.value = _uiState.value.copy(isLoading = false, user = result.data, error = null)
+                    _uiState.value = _uiState.value.copy(isLoading = false, successMessage = "Registration successful!", error = null)
                 }
                 is Resource.Error -> {
                     _uiState.value = _uiState.value.copy(isLoading = false, error = result.message)
