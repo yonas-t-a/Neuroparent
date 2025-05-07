@@ -1,8 +1,8 @@
-package com.example.neuroparentmobileapp.domain.repository
+package com.example.neuroparentmobileapp.user.domain.repository
 
-import com.example.neuroparentmobileapp.domain.model.Article
+import com.example.neuroparentmobileapp.user.data.remote.dto.ArticleDto
+import com.example.neuroparentmobileapp.user.domain.model.Article
 
 interface ArticleRepository {
-    suspend fun getArticles(): List<Article>
-    suspend fun bookmarkArticle(articleId: Int)
+    suspend fun getArticles(): List<ArticleDto>
 }

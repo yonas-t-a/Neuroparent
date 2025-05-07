@@ -1,6 +1,6 @@
-package com.example.neuroparentmobileapp.domain.repository
+package com.example.neuroparentmobileapp.user.domain.repository
 
-import com.example.neuroparentmobileapp.domain.model.UserProfile
+import com.example.neuroparentmobileapp.user.domain.model.UserProfile
 
 interface UserRepository {
     suspend fun getUserProfile(userId: Int): UserProfile
