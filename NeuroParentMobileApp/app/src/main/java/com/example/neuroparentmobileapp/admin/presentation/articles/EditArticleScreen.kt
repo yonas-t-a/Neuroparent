@@ -1,4 +1,4 @@
-package com.example.neuroparent.admin.presentation.articles
+package com.example.neuroparentmobileapp.admin.presentation.articles
 
 import androidx.compose.ui.unit.dp
 
@@ -37,8 +37,8 @@ import androidx.compose.ui.unit.sp
 
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
-import com.example.neuroparent.shared.components.navigation.BottomNavItem
-import com.example.neuroparent.shared.components.navigation.BottomNavigationBar
+import com.example.neuroparentmobileapp.shared.components.navigation.BottomNavItem
+import com.example.neuroparentmobileapp.shared.components.navigation.BottomNavigationBar
 
 
 @Composable
