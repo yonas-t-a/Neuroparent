@@ -1,4 +1,5 @@
-package com.example.neuroparent.user.presentation.events
+package com.example.neuroparent.admin.presentation.events
+
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -23,13 +24,14 @@ import com.example.neuroparent.shared.components.navigation.BottomNavigationBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EventsScreen(navController: NavController) {
+fun AdminAllEvent(navController: NavController) {
     val bottomNavItems = listOf(
-        BottomNavItem.Home,
-        BottomNavItem.Ideas,
-        BottomNavItem.Calendar,
-        BottomNavItem.Edit,
-        BottomNavItem.Profile
+        BottomNavItem.AdminHome,
+        BottomNavItem.AdminIdeas,
+        BottomNavItem.AdminCalendar,
+        BottomNavItem.AdminEdit,
+        BottomNavItem.AdminProfile,
+        BottomNavItem.Add
     )
 
     val currentRoute = navController.currentDestination?.route ?: BottomNavItem.Calendar.route

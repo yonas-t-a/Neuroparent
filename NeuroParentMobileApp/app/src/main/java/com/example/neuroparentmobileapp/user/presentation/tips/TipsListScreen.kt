@@ -1,4 +1,4 @@
-package com.example.neuroparentmobileapp.user.presentation.tips
+package com.example.neuroparent.user.presentation.tips
 
 
 import androidx.compose.foundation.Image
@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
@@ -18,13 +19,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,15 +50,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+
+
 import androidx.navigation.NavController
-import com.example.neuroparentmobileapp.R
+import com.example.neuroparent.R
+import com.example.neuroparent.shared.components.navigation.BottomNavItem
+import com.example.neuroparent.shared.components.navigation.BottomNavigationBar
+
 
 @Composable
-fun MainScreen(
+fun TipslistScreen(
     imageId: Array<Int>,
     articleTitle: Array<String>,
     articleLittleDescription: Array<String>,
-    navController: NavController,
+    navController : NavController,
     modifier: Modifier = Modifier
 ) {
     var searchQuery by remember { mutableStateOf("") }
@@ -63,17 +77,34 @@ fun MainScreen(
             .map { it.index }
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    val bottomNavItems = listOf(
+        BottomNavItem.Home,
+        BottomNavItem.Ideas,
+        BottomNavItem.Calendar,
+        BottomNavItem.Edit,
+        BottomNavItem.Profile
+    )
+
+    val currentRoute = navController.currentDestination?.route ?: BottomNavItem.Calendar.route
+    Scaffold(bottomBar = {
+        BottomNavigationBar(
+            navController = navController,
+            items = bottomNavItems,
+            currentRoute = currentRoute
+        )
+    }) {  innerpadding -> Column(modifier = Modifier.fillMaxSize()) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(innerpadding)
                 .padding( start = 16.dp, bottom = 0.dp, end = 16.dp, top = 16.dp)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.arrow_back_icon),
                 contentDescription = "Back",
                 modifier = Modifier.size(24.dp)
+                    .clickable { navController.popBackStack() }
             )
             Text(
                 text = "Tips & Tricks",
@@ -107,7 +138,7 @@ fun MainScreen(
                 .padding(horizontal = 16.dp)
         ) {
             items(categories) { category ->   // here is the line that has a problem, red line on categories
-                FilterChip(
+                FiltersChip(
                     text = category.toString(),
                     isSelected =  false,    // selectedCategory == category,
                     onClick = { selectedCategory = category.toString() }
@@ -119,7 +150,7 @@ fun MainScreen(
             val itemCount = minOf(imageId.size, articleTitle.size, articleLittleDescription.size)
 
             items(itemCount) {
-                ColumnItem(
+                ColumnsItem(
                     modifier,
                     painter = imageId,
                     articleTitle = articleTitle,
@@ -129,13 +160,14 @@ fun MainScreen(
                 )
             }
         }
-    }
+    }}
+
 
 }
 
 
 @Composable
-fun ColumnItem(
+fun ColumnsItem(
     modifier: Modifier,
     painter: Array<Int>,
     articleTitle: Array<String>,
@@ -150,7 +182,7 @@ fun ColumnItem(
             .padding(10.dp)
             .wrapContentSize()
             .clickable {
-                navController.navigate(route= "DetailScreen/$itemIndex")
+                navController.navigate(route= "DetailTipsTricksUi/$itemIndex")
             },
         colors = CardDefaults.cardColors(
             containerColor = Color.White
@@ -206,7 +238,7 @@ fun ColumnItem(
 }
 
 @Composable
-fun FilterChip(text: String, isSelected: Boolean, onClick: () -> Unit) {
+fun FiltersChip(text: String, isSelected: Boolean, onClick: () -> Unit) {
     Surface(
         color = if (isSelected) MaterialTheme.colorScheme.primary else Color(0xFFE3EBF5),
         shape = MaterialTheme.shapes.medium,

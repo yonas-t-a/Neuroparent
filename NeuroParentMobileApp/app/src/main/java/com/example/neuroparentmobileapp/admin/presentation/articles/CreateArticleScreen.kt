@@ -1,4 +1,10 @@
-package com.example.articleedit.screen
+package com.example.neuroparent.admin.presentation.articles
+
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.dp
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -15,6 +21,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -29,104 +40,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import java.nio.file.WatchEvent
+
+import androidx.compose.ui.unit.sp
+
+import androidx.compose.ui.text.font.FontWeight
+import androidx.navigation.NavController
+import com.example.neuroparent.shared.components.navigation.BottomNavItem
+import com.example.neuroparent.shared.components.navigation.BottomNavigationBar
 
 @Composable
-fun NewArticleScreen(
-//    onCancel: () -> Unit,
-//    onPreview: () -> Unit,
-//    onAddArticle: (title: String, content: String, imageUri: Uri?) -> Unit
-) {
-    var title by remember { mutableStateOf("") }
-    var content by remember { mutableStateOf("") }
-    var imageUri by remember { mutableStateOf<Uri?>(null) }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        Spacer(modifier = Modifier.height(40.dp))
-        // Top Row: Cancel & Preview
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text("Cancel", modifier = Modifier.clickable { /*onCancel() */})
-            Text("Preview", color = Color.Red, modifier = Modifier.clickable { /*onPreview() */})
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Title Input
-        OutlinedTextField(
-            value = title,
-            onValueChange = { title = it },
-            label = { Text("Title") },
-            modifier = Modifier.fillMaxWidth(),
-            colors = TextFieldDefaults.colors(
-                disabledContainerColor = Color(0xFFEFF6FC),
-                unfocusedContainerColor = Color(0xFFEFF6FC),
-                focusedContainerColor = Color(0xFFEFF6FC)
-            )
-        )
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        // Image Upload (Mocked with Button for simplicity)
-        val imageUri = remember { mutableStateOf<Uri?>(null) }
-
-        val launcher = rememberLauncherForActivityResult(
-            contract = ActivityResultContracts.GetContent()
-        ) { uri: Uri? ->
-            imageUri.value = uri
-        }
-        var selectedImageName by remember { mutableStateOf<String?>(null) }
-
-        ImagePickerField(
-            selectedImageName = selectedImageName,
-            onPickImageClick = {
-                launcher.launch("image/*")
-            }
-        )
-
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        // Content Input
-        OutlinedTextField(
-            value = content,
-            onValueChange = { content = it },
-            label = { Text("Content") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(400.dp),
-            colors = TextFieldDefaults.colors(
-                disabledContainerColor = Color(0xFFEFF6FC),
-                unfocusedContainerColor = Color(0xFFEFF6FC),
-                focusedContainerColor = Color(0xFFEFF6FC)
-            )
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // Add Article Button
-        Button(
-            onClick = { /*onAddArticle(title, content, imageUri)*/ },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFA1DCEB),
-                contentColor = Color.White
-            ),
-            shape = RoundedCornerShape(24.dp)
-        ) {
-            Text("Add Article")
-        }
-    }
-}
-@Composable
-fun ImagePickerField(
+fun ImagePickersField(
     selectedImageName: String?,
     onPickImageClick: () -> Unit
 ) {
@@ -135,11 +59,11 @@ fun ImagePickerField(
         onValueChange = {},
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onPickImageClick() }, // Makes the whole field clickable
+            .clickable { onPickImageClick() },
         label = { Text("Add image") },
         leadingIcon = {
             Icon(
-                imageVector = Icons.Default.Add, // or use any upload icon
+                imageVector = Icons.Default.Add,
                 contentDescription = "Upload",
                 modifier = Modifier.clickable { onPickImageClick() }
             )
@@ -164,4 +88,116 @@ fun ImagePickerField(
             disabledLeadingIconColor = Color.Gray
         )
     )
+}
+
+
+@Composable
+fun CreateArticleScreen(navController : NavController) {
+    var title by remember { mutableStateOf("") }
+    var content by remember { mutableStateOf("") }
+    var imageUri by remember { mutableStateOf<Uri?>(null) }
+    var selectedImageName by remember { mutableStateOf<String?>(null) }
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        imageUri = uri
+        selectedImageName = uri?.lastPathSegment
+    }
+
+    val bottomNavItems = listOf(
+        BottomNavItem.AdminHome,
+        BottomNavItem.AdminIdeas,
+        BottomNavItem.AdminCalendar,
+        BottomNavItem.AdminEdit,
+        BottomNavItem.AdminProfile,
+        BottomNavItem.Add
+    )
+
+    val currentRoute = navController.currentDestination?.route ?: BottomNavItem.Calendar.route
+
+    Scaffold(
+        bottomBar = {
+            BottomNavigationBar(
+                navController = navController,
+                items = bottomNavItems,
+                currentRoute = currentRoute
+            )
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            Text("Cancel", modifier = Modifier.clickable { /*onCancel()*/ })
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    "New Article",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 30.sp
+                )
+                Text("Preview", color = Color.Red, modifier = Modifier.clickable { /*onPreview()*/ })
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedTextField(
+                value = title,
+                onValueChange = { title = it },
+                label = { Text("Title") },
+                modifier = Modifier.fillMaxWidth(),
+                colors = TextFieldDefaults.colors(
+                    disabledContainerColor = Color(0xFFEFF6FC),
+                    unfocusedContainerColor = Color(0xFFEFF6FC),
+                    focusedContainerColor = Color(0xFFEFF6FC)
+                )
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            ImagePickersField(
+                selectedImageName = selectedImageName,
+                onPickImageClick = {
+                    launcher.launch("image/*")
+                }
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            OutlinedTextField(
+                value = content,
+                onValueChange = { content = it },
+                label = { Text("Content") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(400.dp),
+                colors = TextFieldDefaults.colors(
+                    disabledContainerColor = Color(0xFFEFF6FC),
+                    unfocusedContainerColor = Color(0xFFEFF6FC),
+                    focusedContainerColor = Color(0xFFEFF6FC)
+                )
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Button(
+                onClick = { /* onAddArticle(title, content, imageUri) */ },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFA1DCEB),
+                    contentColor = Color.White
+                ),
+                shape = RoundedCornerShape(24.dp)
+            ) {
+                Text("Add Article")
+            }
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.neuroparent.user.presentation.profile
+package com.example.neuroparent.admin.presentation.Profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Home
@@ -45,17 +46,18 @@ import com.example.neuroparent.shared.components.navigation.BottomNavigationBar
 
 
 @Composable
-fun ProfileScreen(navController : NavController) {
+fun AdminProfile(navController : NavController) {
     var name by remember { mutableStateOf("Abebe Girma Thomas") }
     var email by remember { mutableStateOf("abebe.girma@gmail.com") }
     var password by remember { mutableStateOf("************") }
 
     val bottomNavItems = listOf(
-        BottomNavItem.Home,
-        BottomNavItem.Ideas,
-        BottomNavItem.Calendar,
-        BottomNavItem.Edit,
-        BottomNavItem.Profile
+        BottomNavItem.AdminHome,
+        BottomNavItem.AdminIdeas,
+        BottomNavItem.AdminCalendar,
+        BottomNavItem.AdminEdit,
+        BottomNavItem.AdminProfile,
+        BottomNavItem.Add
     )
 
     val currentRoute = navController.currentDestination?.route ?: BottomNavItem.Calendar.route
@@ -150,7 +152,7 @@ fun ProfileScreen(navController : NavController) {
 
             // Edit Profile Button
             Button(
-                onClick = {navController.navigate("Usereditprofile")},
+                onClick = {navController.navigate("Admineditprofile")},
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE89A9A)),
                 shape = RoundedCornerShape(20.dp),
                 modifier = Modifier

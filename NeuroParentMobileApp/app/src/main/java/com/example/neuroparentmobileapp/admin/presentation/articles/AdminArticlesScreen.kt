@@ -1,29 +1,24 @@
+package com.example.neuroparent.admin.presentation.articles
+
+
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -32,10 +27,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldColors
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -51,11 +45,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.neuroparentmobileapp.R
+
+import com.example.neuroparent.R
+import com.example.neuroparent.shared.components.navigation.BottomNavItem
+import com.example.neuroparent.shared.components.navigation.BottomNavigationBar
 
 
 @Composable
-fun MainScreen(
+fun AdminArticlesScreen(
     imageId: Array<Int>,
     articleTitle: Array<String>,
     articleLittleDescription: Array<String>,
@@ -73,79 +70,103 @@ fun MainScreen(
             .map { it.index }
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding( start = 16.dp, bottom = 0.dp, end = 16.dp, top = 16.dp)
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.arrow_back_icon),
-                contentDescription = "Back",
-                modifier = Modifier.size(24.dp)
-            )
-            Text(
-                text = "Tips & Tricks",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(start = 8.dp) // small space between icon and text
-            )
-        }
-        OutlinedTextField(
-            value = searchQuery,
-            onValueChange = { searchQuery = it },
-            label = { Text("Search tips") },
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Search Icon"
-                )
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFFE3EBF5),
-                unfocusedContainerColor = Color(0xFFE3EBF5)
-            )
+    val bottomNavItems = listOf(
+        BottomNavItem.AdminHome,
+        BottomNavItem.AdminIdeas,
+        BottomNavItem.AdminCalendar,
+        BottomNavItem.AdminEdit,
+        BottomNavItem.AdminProfile,
+        BottomNavItem.Add
+    )
+
+    val currentRoute = navController.currentDestination?.route ?: BottomNavItem.Calendar.route
+
+    Scaffold(bottomBar = {
+        BottomNavigationBar(
+            navController = navController,
+            items = bottomNavItems,
+            currentRoute = currentRoute
         )
-        // Horizontal Category Buttons
-        LazyRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-        ) {
-            items(categories) { category ->   // here is the line that has a problem, red line on categories
-                FilterChip(
-                    text = category.toString(),
-                    isSelected =  false,    // selectedCategory == category,
-                    onClick = { selectedCategory = category.toString() }
+    }) { paddingValues ->
+        Column(modifier = Modifier.fillMaxSize()) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(paddingValues)
+                    .padding( start = 16.dp, bottom = 0.dp, end = 16.dp, top = 16.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.arrow_back_icon),
+                    contentDescription = "Back",
+                    modifier = Modifier.size(24.dp)
+                        .clickable{navController.popBackStack() }
                 )
+                Text(
+                    text = "Tips & Tricks",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(start = 8.dp) // small space between icon and text
+                )
+            }
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                label = { Text("Search tips") },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Search Icon"
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = Color(0xFFE3EBF5),
+                    unfocusedContainerColor = Color(0xFFE3EBF5)
+                )
+            )
+            // Horizontal Category Buttons
+            LazyRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+            ) {
+                items(categories) { category ->   // here is the line that has a problem, red line on categories
+                    FilterssChip(
+                        text = category.toString(),
+                        isSelected =  false,    // selectedCategory == category,
+                        onClick = { selectedCategory = category.toString() }
+                    )
+                }
+            }
+
+            LazyColumn(contentPadding = PaddingValues(16.dp)) {
+                val itemCount = imageId.size
+
+                items(itemCount) {
+                    ColumnssItem(
+                        modifier,
+                        painter = imageId,
+                        articleTitle = articleTitle,
+                        articleLittleDescription = articleLittleDescription,
+                        itemIndex = it,
+                        navController = navController
+                    )
+                }
             }
         }
 
-        LazyColumn(contentPadding = PaddingValues(16.dp)) {
-            val itemCount = imageId.size
-
-            items(itemCount) {
-                ColumnItem(
-                    modifier,
-                    painter = imageId,
-                    articleTitle = articleTitle,
-                    articleLittleDescription = articleLittleDescription,
-                    itemIndex = it,
-                    navController = navController
-                )
-            }
-        }
     }
+
+
 
 }
 
 
 @Composable
-fun ColumnItem(
+fun ColumnssItem(
     modifier: Modifier,
     painter: Array<Int>,
     articleTitle: Array<String>,
@@ -241,7 +262,7 @@ fun ColumnItem(
 }
 
 @Composable
-fun FilterChip(text: String, isSelected: Boolean, onClick: () -> Unit) {
+fun FilterssChip(text: String, isSelected: Boolean, onClick: () -> Unit) {
     Surface(
         color = if (isSelected) MaterialTheme.colorScheme.primary else Color(0xFFE3EBF5),
         shape = MaterialTheme.shapes.medium,
