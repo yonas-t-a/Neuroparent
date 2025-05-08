@@ -1,4 +1,4 @@
-package com.example.neuroparent.user.presentation.events
+package com.example.neuroparentmobileapp.user.presentation.events
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -22,8 +22,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.neuroparent.shared.components.navigation.BottomNavItem
-import com.example.neuroparent.shared.components.navigation.BottomNavigationBar
+import com.example.neuroparentmobileapp.shared.components.navigation.BottomNavItem
+import com.example.neuroparentmobileapp.shared.components.navigation.BottomNavigationBar
+
+//import com.example.neuroparent.shared.components.navigation.BottomNavItem
+//import com.example.neuroparent.shared.components.navigation.BottomNavigationBar
 
 
 @OptIn(ExperimentalMaterial3Api::class)
