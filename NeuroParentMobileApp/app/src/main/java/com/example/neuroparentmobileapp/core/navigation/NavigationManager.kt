@@ -3,7 +3,6 @@ package com.example.neuroparentmobileapp.core.navigation
 
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
-import AppNavigator
 import androidx.navigation.navOptions
 
 class NavigationManager : AppNavigator {
