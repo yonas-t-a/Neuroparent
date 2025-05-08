@@ -18,29 +18,36 @@ export async function getArticleById(req, res) {
         }
         res.status(200).json(article);
     } catch (error) {
-        res.status(500).json({ error: "Error fetching article" });
+        res.status(500).json({ error: `Error fetching article ${error.message}` });
     }
 }
 export async function createArticle(req, res) {
     const { title, content, category } = req.body;
-    const img = req.file ? `/images/${req.file.filename}` : null; // Get the uploaded image path
+    const img = req.file ? `/images/${req.file.filename}` : null; 
 
-    if (!title || !content || !category) {
-        return res.status(400).json({ error: "All fields are required" });
+    if (!title || !content || !category || !img) {
+        return res.status(400).json({ error: "All fields, including an image, are required" });
     }
 
     try {
-        const newArticle = { title, content, category, img };
+        if (!req.user || !req.user.id) {
+            return res.status(401).json({ error: "Unauthorized: User information not found in token" });
+        }
+        const article_creator_id = req.user.id;
+
+        const newArticle = { title, content, category, img, article_creator_id };
+
         const result = await articleModel.createArticle(newArticle);
+
         res.status(201).json({ id: result.insertId, ...newArticle });
     } catch (error) {
-        res.status(500).json({ error: "Error creating article" });
+        res.status(500).json({ error: `Error in Creating article ${error.message}` });
     }
 }
 export async function updateArticle(req, res) {
     const { id } = req.params;
     const { title, content, category } = req.body;
-    const img = req.file ? `/images/${req.file.filename}` : null; // Get the uploaded image path
+    const img = req.file ? `/images/${req.file.filename}` : null; 
 
     if (!title || !content || !category) {
         return res.status(400).json({ error: "All fields are required" });

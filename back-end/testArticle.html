@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Article</title>
+</head>
+<body>
+    <h1>Upload Article</h1>
+    <form id="articleForm" enctype="multipart/form-data">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" required><br><br>
+
+        <label for="category">Category:</label><br>
+        <input type="text" id="category" name="category" required><br><br>
+
+        <label for="content">Content:</label><br>
+        <textarea id="content" name="content" rows="5" cols="40" required></textarea><br><br>
+
+        <label for="img">Image:</label><br>
+        <input type="file" id="img" name="img" accept="image/*" required><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('articleForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData();
+            formData.append('title', document.getElementById('title').value);
+            formData.append('category', document.getElementById('category').value);
+            formData.append('content', document.getElementById('content').value);
+            formData.append('img', document.getElementById('img').files[0]);
+
+            try {
+                const response = await fetch('http://localhost:3500/api/articles', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ2NzA0MTg2LCJleHAiOjE3NDY3OTA1ODZ9.JRIrzkiRGfs3tvAKpwjGN7bAW7c5I7Z05BrJ_zVHDAM'
+                    },
+                    body: formData
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert('Article uploaded successfully!');
+                    console.log(result);
+                } else {
+                    alert(`Error: ${result.error}`);
+                    console.error(result);
+                }
+            } catch (error) {
+                alert('An error occurred while uploading the article.');
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>
