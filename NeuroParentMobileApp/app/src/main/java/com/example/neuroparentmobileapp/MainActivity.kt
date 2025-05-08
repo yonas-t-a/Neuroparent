@@ -13,7 +13,7 @@ import com.example.neuroparentmobileapp.ui.theme.NeuroParentMobileAppTheme
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.flow.collectLatest
 
-@HiltAndroidApp
+//@HiltAndroidApp
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
