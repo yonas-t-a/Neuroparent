@@ -1,9 +1,5 @@
-package com.example.neuroparent
+package com.example.neuroparentmobileapp.user.presentation.events
 
-
-
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.CardDefaults
 
 
@@ -12,13 +8,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.DateRange
-
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Info
-
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 
@@ -30,8 +19,8 @@ import androidx.compose.ui.unit.sp
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.navigation.NavController
-import com.example.neuroparent.shared.components.navigation.BottomNavItem
-import com.example.neuroparent.shared.components.navigation.BottomNavigationBar
+import com.example.neuroparentmobileapp.shared.components.navigation.BottomNavItem
+import com.example.neuroparentmobileapp.shared.components.navigation.BottomNavigationBar
 
 
 @OptIn(ExperimentalMaterial3Api::class)
