@@ -1,5 +1,4 @@
-package com.example.neuroparent.shared.components.navigation
-
+package com.example.neuroparentmobileapp.shared.components.navigation
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
