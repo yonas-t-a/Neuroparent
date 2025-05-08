@@ -1,3 +1,5 @@
+package com.example.neuroparentmobileapp.core.navigation
+
 // core/navigation/AppNavigator.kt
 interface AppNavigator {
     fun navigateTo(route: String)
