@@ -1,6 +1,6 @@
 package com.example.neuroparentmobileapp.admin.data.remote.dto
 
-import com.example.neuroparentmobileapp.domain.model.AdminEvent
+import com.example.neuroparentmobileapp.admin.domain.model.AdminEvent
 
 // Matches backend API response
 // { event_id, event_title, event_description, event_date, event_time, event_location, event_category, creator_id, event_status }

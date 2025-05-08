@@ -2,12 +2,12 @@ package com.example.neuroparentmobileapp.admin.presentation.events
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.neuroparentmobileapp.admin.domain.usecase.Resource.Resource
-import com.example.neuroparentmobileapp.domain.model.AdminEvent
-import com.example.neuroparentmobileapp.domain.usecase.CreateEventUseCase
-import com.example.neuroparentmobileapp.domain.usecase.UpdateEventUseCase
-import com.example.neuroparentmobileapp.domain.usecase.DeleteEventUseCase
-import com.example.neuroparentmobileapp.domain.usecase.GetAdminEventsUseCase
+import com.example.neuroparentmobileapp.admin.domain.model.AdminEvent
+import com.example.neuroparentmobileapp.admin.domain.usecase.resource.Resource
+import com.example.neuroparentmobileapp.admin.domain.usecase.CreateEventUseCase
+import com.example.neuroparentmobileapp.admin.domain.usecase.UpdateEventUseCase
+import com.example.neuroparentmobileapp.admin.domain.usecase.DeleteEventUseCase
+import com.example.neuroparentmobileapp.admin.domain.usecase.GetAdminEventsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

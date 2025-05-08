@@ -24,8 +24,8 @@ package com.example.neuroparentmobileapp.admin.data.repository
 import com.example.neuroparentmobileapp.admin.data.remote.AdminArticleApiService
 import com.example.neuroparentmobileapp.admin.data.remote.dto.AdminArticleDto
 import com.example.neuroparentmobileapp.admin.data.remote.dto.toDomain
-import com.example.neuroparentmobileapp.domain.model.AdminArticle
-import com.example.neuroparentmobileapp.domain.repository.AdminArticleRepository
+import com.example.neuroparentmobileapp.admin.domain.model.AdminArticle
+import com.example.neuroparentmobileapp.admin.domain.repository.AdminArticleRepository
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

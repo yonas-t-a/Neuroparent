@@ -1,6 +1,6 @@
-package com.example.neuroparentmobileapp.domain.repository
+package com.example.neuroparentmobileapp.admin.domain.repository
 
-import com.example.neuroparentmobileapp.domain.model.AdminArticle
+import com.example.neuroparentmobileapp.admin.domain.model.AdminArticle
 
 interface AdminArticleRepository {
     suspend fun createArticle(article: AdminArticle, token: String, image: ByteArray?)

@@ -4,8 +4,11 @@ import com.example.neuroparentmobileapp.admin.data.remote.AdminEventApiService
 import com.example.neuroparentmobileapp.admin.data.remote.dto.AdminEventDto
 import com.example.neuroparentmobileapp.admin.data.remote.dto.toDomain
 import com.example.neuroparentmobileapp.admin.data.remote.dto.toDto
-import com.example.neuroparentmobileapp.domain.model.AdminEvent
-import com.example.neuroparentmobileapp.domain.repository.AdminEventRepository
+import com.example.neuroparentmobileapp.admin.domain.model.AdminEvent
+import com.example.neuroparentmobileapp.admin.domain.repository.AdminEventRepository
+
+//import com.example.neuroparentmobileapp.domain.model.AdminEvent
+//import com.example.neuroparentmobileapp.domain.repository.AdminEventRepository
 
 class AdminEventRepositoryImpl(
     private val apiService: AdminEventApiService

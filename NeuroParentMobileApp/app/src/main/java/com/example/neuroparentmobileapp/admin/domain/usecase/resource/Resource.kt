@@ -1,4 +1,4 @@
-package com.example.neuroparentmobileapp.admin.domain.usecase.Resource
+package com.example.neuroparentmobileapp.admin.domain.usecase.resource
 
 sealed class Resource<out T> {
     data class Success<T>(val data: T): Resource<T>()

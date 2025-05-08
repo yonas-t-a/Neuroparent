@@ -1,6 +1,6 @@
-package com.example.neuroparentmobileapp.domain.repository
+package com.example.neuroparentmobileapp.admin.domain.repository
 
-import com.example.neuroparentmobileapp.domain.model.AdminEvent
+import com.example.neuroparentmobileapp.admin.domain.model.AdminEvent
 
 interface AdminEventRepository {
     suspend fun createEvent(event: AdminEvent, token: String)

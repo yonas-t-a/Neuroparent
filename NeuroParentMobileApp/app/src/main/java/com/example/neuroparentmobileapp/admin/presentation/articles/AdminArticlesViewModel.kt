@@ -2,12 +2,12 @@ package com.example.neuroparentmobileapp.admin.presentation.articles
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.neuroparentmobileapp.admin.domain.usecase.Resource.Resource
-import com.example.neuroparentmobileapp.domain.model.AdminArticle
-import com.example.neuroparentmobileapp.domain.usecase.CreateArticleUseCase
-import com.example.neuroparentmobileapp.domain.usecase.UpdateArticleUseCase
-import com.example.neuroparentmobileapp.domain.usecase.DeleteArticleUseCase
-import com.example.neuroparentmobileapp.domain.usecase.GetAdminArticlesUseCase
+import com.example.neuroparentmobileapp.admin.domain.model.AdminArticle
+import com.example.neuroparentmobileapp.admin.domain.usecase.resource.Resource
+import com.example.neuroparentmobileapp.admin.domain.usecase.CreateArticleUseCase
+import com.example.neuroparentmobileapp.admin.domain.usecase.DeleteArticleUseCase
+import com.example.neuroparentmobileapp.admin.domain.usecase.UpdateArticleUseCase
+import com.example.neuroparentmobileapp.admin.domain.usecase.GetAdminArticlesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

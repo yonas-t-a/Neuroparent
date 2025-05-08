@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.neuroparentmobileapp.domain.model.AdminArticle
+import com.example.neuroparentmobileapp.admin.domain.model.AdminArticle
 
 @Dao
 interface AdminArticleDao {
