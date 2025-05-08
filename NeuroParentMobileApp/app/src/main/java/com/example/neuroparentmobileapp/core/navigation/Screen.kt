@@ -1,4 +1,4 @@
-package com.example.neuroparent.core.navigation
+package com.example.neuroparentmobileapp.core.navigation
 
 import com.example.neuroparent.admin.presentation.Profile.AdminProfile
 
