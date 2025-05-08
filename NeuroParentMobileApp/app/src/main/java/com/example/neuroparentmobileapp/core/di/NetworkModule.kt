@@ -1,9 +1,11 @@
 package com.example.neuroparentmobileapp.core.di
 
-import UserApiService
-import auth.data.remote.AuthApiService
+import com.example.neuroparentmobileapp.auth.data.remote.AuthApiService
 import com.example.neuroparentmobileapp.admin.data.remote.AdminArticleApiService
 import com.example.neuroparentmobileapp.admin.data.remote.AdminEventApiService
+import com.example.neuroparentmobileapp.user.data.remote.ArticleApiService
+import com.example.neuroparentmobileapp.user.data.remote.EventApiService
+import com.example.neuroparentmobileapp.user.data.remote.UserApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -14,7 +16,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import user.data.remote.*
 import javax.inject.Singleton
 
 private const val BASE_URL = "http://10.0.2.2:3500/api/"

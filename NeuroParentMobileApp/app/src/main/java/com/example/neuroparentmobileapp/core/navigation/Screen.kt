@@ -1,8 +1,6 @@
 package com.example.neuroparentmobileapp.core.navigation
 
-import com.example.neuroparent.admin.presentation.Profile.AdminProfile
-
-// core/navigation/Screen.kt
+//import com.example.neuroparentmobileapp.admin.presentation.Profile.AdminProfile
 sealed class Screen(val route: String) {
     object Login : Screen("login")
     object SignUp : Screen("signup")
@@ -22,7 +20,4 @@ sealed class Screen(val route: String) {
     object AdminCreatearticle : Screen("CreateArticlesScreen")
     object Adminhomescreen : Screen("AdminHomeScreen")
     object Adminallevent : Screen("AdminAllEvent")
-
-
-    // Add other screens here as needed
 }
