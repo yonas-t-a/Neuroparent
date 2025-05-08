@@ -1,4 +1,4 @@
-package com.example.neuroparent.core.navigation
+package com.example.neuroparentmobileapp.core.navigation
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -7,25 +7,23 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.neuroparent.admin.presentation.events.AdminEventsScreen
-import com.example.neuroparent.admin.presentation.events.CreateEventScreen
-import com.example.neuroparent.admin.presentation.events.EditEventScreen
-import com.example.neuroparent.admin.presentation.home.AddEdit
-import com.example.neuroparent.auth.presentation.login.Login
-import com.example.neuroparent.auth.presentation.signup.SignUp
-import com.example.neuroparent.user.presentation.events.EventsScreen
-import com.example.neuroparent.user.presentation.home.HomeScreen
-import com.example.neuroparent.user.presentation.events.UserEventsScreen
-import com.example.neuroparent.user.presentation.profile.EditProfileScreen
-import com.example.neuroparent.user.presentation.profile.ProfileScreen
-import com.example.neuroparent.admin.presentation.Profile.AdminProfile
-import com.example.neuroparent.admin.presentation.Profile.AdminEditProfile
-import com.example.neuroparent.admin.presentation.articles.AdminArticlesScreen
-import com.example.neuroparent.admin.presentation.articles.CreateArticleScreen
-import com.example.neuroparent.admin.presentation.articles.EditArticleScreen
-import com.example.neuroparent.admin.presentation.events.AdminAllEvent
-import com.example.neuroparent.admin.presentation.home.AdminHomeScreen
-import com.example.neuroparent.user.presentation.tips.TipslistScreen
+import com.example.neuroparentmobileapp.admin.presentation.Profile.AdminEditProfile
+import com.example.neuroparentmobileapp.admin.presentation.Profile.AdminProfile
+import com.example.neuroparentmobileapp.admin.presentation.articles.CreateArticleScreen
+import com.example.neuroparentmobileapp.admin.presentation.articles.EditArticleScreen
+import com.example.neuroparentmobileapp.admin.presentation.events.AdminAllEvent
+import com.example.neuroparentmobileapp.admin.presentation.events.AdminEventsScreen
+import com.example.neuroparentmobileapp.admin.presentation.events.CreateEventScreen
+import com.example.neuroparentmobileapp.admin.presentation.events.EditEventScreen
+import com.example.neuroparentmobileapp.admin.presentation.home.AddEdit
+import com.example.neuroparentmobileapp.admin.presentation.home.AdminHomeScreen
+import com.example.neuroparentmobileapp.auth.presentation.login.Login
+import com.example.neuroparentmobileapp.auth.presentation.signup.SignUp
+import com.example.neuroparentmobileapp.user.presentation.events.EventsScreen
+import com.example.neuroparentmobileapp.user.presentation.events.UserEventsScreen
+import com.example.neuroparentmobileapp.user.presentation.home.EditProfileScreen
+import com.example.neuroparentmobileapp.user.presentation.home.HomeScreen
+import com.example.neuroparentmobileapp.user.presentation.home.ProfileScreen
 
 
 @Composable
