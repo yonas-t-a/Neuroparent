@@ -1,4 +1,4 @@
-package auth.data.remote
+package com.example.neuroparentmobileapp.auth.data.remote
 
 
 import com.example.neuroparentmobileapp.auth.data.remote.dto.LoginRequest
