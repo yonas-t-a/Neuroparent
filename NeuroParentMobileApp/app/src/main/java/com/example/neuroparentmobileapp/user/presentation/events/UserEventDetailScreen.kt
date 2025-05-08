@@ -52,7 +52,7 @@ fun UserEventDetailScreen(navController: NavController) {
             TopAppBar(
                 title = { Row {
                     Text("Supporting Your\nNeurodivergent Child", fontSize = 25.sp)
-                    Spacer(modifier = Modifier.width(25.dp)) // ✅ Valid inside a Row
+                    Spacer(modifier = Modifier.width(25.dp))
                 } },
 
                 navigationIcon = {
