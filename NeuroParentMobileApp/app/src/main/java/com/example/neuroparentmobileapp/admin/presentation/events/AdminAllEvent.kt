@@ -1,4 +1,4 @@
-package com.example.neuroparent.admin.presentation.events
+package com.example.neuroparentmobileapp.admin.presentation.events
 
 
 import androidx.compose.foundation.background
@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.navigation.NavController
-import com.example.neuroparent.shared.components.navigation.BottomNavItem
-import com.example.neuroparent.shared.components.navigation.BottomNavigationBar
+import com.example.neuroparentmobileapp.shared.components.navigation.BottomNavItem
+import com.example.neuroparentmobileapp.shared.components.navigation.BottomNavigationBar
 
 
 @OptIn(ExperimentalMaterial3Api::class)

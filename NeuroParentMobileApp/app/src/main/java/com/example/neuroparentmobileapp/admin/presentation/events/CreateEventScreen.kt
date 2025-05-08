@@ -1,4 +1,4 @@
-package com.example.neuroparent.admin.presentation.events
+package com.example.neuroparentmobileapp.admin.presentation.events
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,9 +43,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.width
 import androidx.navigation.NavController
-import com.example.neuroparent.core.navigation.NavigationManager
-import com.example.neuroparent.shared.components.navigation.BottomNavItem
-import com.example.neuroparent.shared.components.navigation.BottomNavigationBar
+import com.example.neuroparentmobileapp.core.navigation.NavigationManager
+import com.example.neuroparentmobileapp.shared.components.navigation.BottomNavItem
+import com.example.neuroparentmobileapp.shared.components.navigation.BottomNavigationBar
 
 
 @OptIn(ExperimentalMaterial3Api::class)
