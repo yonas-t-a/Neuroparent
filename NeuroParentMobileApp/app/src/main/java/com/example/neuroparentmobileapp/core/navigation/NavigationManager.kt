@@ -1,5 +1,5 @@
 // core/navigation/NavigationManager.kt
-package com.example.neuroparent.core.navigation
+package com.example.neuroparentmobileapp.core.navigation
 
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
