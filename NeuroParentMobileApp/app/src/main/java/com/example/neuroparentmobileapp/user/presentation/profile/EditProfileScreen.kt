@@ -1,4 +1,4 @@
-package com.example.neuroparent.user.presentation.profile
+package com.example.neuroparentmobileapp.user.presentation.home
 
 
 import androidx.compose.foundation.background
@@ -14,16 +14,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -41,8 +34,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.neuroparent.shared.components.navigation.BottomNavItem
-import com.example.neuroparent.shared.components.navigation.BottomNavigationBar
+import com.example.neuroparentmobileapp.shared.components.navigation.BottomNavItem
+import com.example.neuroparentmobileapp.shared.components.navigation.BottomNavigationBar
+
 
 @Composable
 fun EditProfileScreen(navController: NavController) {
