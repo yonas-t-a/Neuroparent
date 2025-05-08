@@ -1,6 +1,5 @@
 package com.example.neuroparentmobileapp.user.data.remote.dto
 
-
 import com.example.neuroparentmobileapp.user.domain.model.Event
 
 data class EventDto(
@@ -12,6 +11,12 @@ data class EventDto(
     val category: String
 )
 
+data class UserEventDto(
+    val user_event_id: Int,
+    val user_id: Int,
+    val event_id: Int
+)
+
 fun EventDto.toDomain(): Event {
-    return Event(id, title,description,date,location,category)
+    return Event(id, title, description, date, location, category)
 }
