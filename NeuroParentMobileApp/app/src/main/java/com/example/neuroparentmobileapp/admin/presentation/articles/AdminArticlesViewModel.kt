@@ -2,6 +2,7 @@ package com.example.neuroparentmobileapp.admin.presentation.articles
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.neuroparentmobileapp.admin.domain.usecase.Resource.Resource
 import com.example.neuroparentmobileapp.domain.model.AdminArticle
 import com.example.neuroparentmobileapp.domain.usecase.CreateArticleUseCase
 import com.example.neuroparentmobileapp.domain.usecase.UpdateArticleUseCase
@@ -11,11 +12,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-sealed class Resource<out T> {
-    data class Success<T>(val data: T): Resource<T>()
-    data class Error(val message: String): Resource<Nothing>()
-    object Loading : Resource<Nothing>()
-}
+//sealed class Resource<out T> {
+//    data class Success<T>(val data: T): Resource<T>()
+//    data class Error(val message: String): Resource<Nothing>()
+//    object Loading : Resource<Nothing>()
+//}
 
 data class AdminArticlesUiState(
     val articles: List<AdminArticle> = emptyList(),
