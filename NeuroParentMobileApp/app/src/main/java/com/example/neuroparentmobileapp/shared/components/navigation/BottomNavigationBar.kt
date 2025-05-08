@@ -1,4 +1,4 @@
-package com.example.neuroparent.shared.components.navigation
+package com.example.neuroparentmobileapp.shared.components.navigation
 
 
 import androidx.compose.foundation.layout.height
@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.neuroparent.shared.components.navigation.BottomNavItem
+import com.example.neuroparentmobileapp.shared.components.navigation.BottomNavItem
 
 @Composable
 fun BottomNavigationBar(
