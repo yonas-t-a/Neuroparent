@@ -2,6 +2,7 @@ package com.example.neuroparentmobileapp.user.data.remote
 
 
 import com.example.neuroparentmobileapp.user.data.remote.dto.EventDto
+import com.example.neuroparentmobileapp.user.data.remote.dto.UserEventDto
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -27,7 +28,7 @@ interface EventApiService {
     suspend fun getEventsByLocation(@Path("location") location: String): List<EventDto>
 
     @GET("userEvents")
-    suspend fun getUserEvents(): List<EventDto>
+    suspend fun getUserEvents(): List<UserEventDto>
 
     @POST("userEvents")
     suspend fun registerForEvent(
