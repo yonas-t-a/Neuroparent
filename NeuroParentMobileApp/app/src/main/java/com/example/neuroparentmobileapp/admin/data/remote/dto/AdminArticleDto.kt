@@ -2,8 +2,7 @@ package com.example.neuroparentmobileapp.admin.data.remote.dto
 
 import com.example.neuroparentmobileapp.admin.domain.model.AdminArticle
 
-// Matches backend API response
-// { article_id, article_title, article_content, article_image, article_category, article_creator_id }
+
 data class AdminArticleDto(
     val article_id: Int,
     val article_title: String,
