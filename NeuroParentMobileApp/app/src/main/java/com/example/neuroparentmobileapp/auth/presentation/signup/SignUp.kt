@@ -14,6 +14,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -41,18 +44,27 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
-
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun SignUp(
     navController: NavController,
-    onSignUpClick: () -> Unit = {},
-    onLoginClick: () -> Unit = {}
+    viewModel: SignUpViewModel = viewModel()
 ) {
-    val name = remember { mutableStateOf("") }
-    val email = remember { mutableStateOf("") }
-    val password = remember { mutableStateOf("") }
+    val uiState by viewModel.uiState.collectAsState()
+    val name = uiState.name
+    val email = uiState.email
+    val password = uiState.password
     val confirmPassword = remember { mutableStateOf("") }
+
+    // Navigate to login on successful registration
+    LaunchedEffect(uiState.successMessage) {
+        if (uiState.successMessage != null) {
+            navController.navigate("login") {
+                popUpTo("signup") { inclusive = true }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -62,95 +74,86 @@ fun SignUp(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.t8), // Replace with your image name
+            painter = painterResource(id = R.drawable.t8),
             contentDescription = "My image description",
             modifier = Modifier.size(150.dp),
             contentScale = ContentScale.Crop
         )
-        // Title
         Text(
             text = "NeuroParent",
             style = MaterialTheme.typography.headlineLarge,
             modifier = Modifier.padding(bottom = 32.dp),
             fontSize = 40.sp,
             fontWeight = FontWeight.Bold
-
         )
-
-        // Name field
         OutlinedTextField(
-            value = name.value,
-            onValueChange = { name.value = it },
+            value = name,
+            onValueChange = { viewModel.onNameChange(it) },
             label = { Text("Name") },
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = Modifier
-                .fillMaxWidth(),
-
-            shape = RoundedCornerShape(12.dp), // Rounded corners
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(12.dp),
         )
-
         Spacer(modifier = Modifier.height(16.dp))
-
-        // Email field
         OutlinedTextField(
-            value = email.value,
-            onValueChange = { email.value = it },
+            value = email,
+            onValueChange = { viewModel.onEmailChange(it) },
             label = { Text("Email") },
-            modifier = Modifier
-                .fillMaxWidth(),
-            shape = RoundedCornerShape(12.dp), // Rounded corners
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(12.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-
-            )
-
+        )
         Spacer(modifier = Modifier.height(16.dp))
-
-        // Password field
         OutlinedTextField(
-            value = password.value,
-            onValueChange = { password.value = it },
+            value = password,
+            onValueChange = { viewModel.onPasswordChange(it) },
             label = { Text("Password") },
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = Modifier
-                .fillMaxWidth(),
-
+            modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(12.dp),
         )
-
         Spacer(modifier = Modifier.height(16.dp))
-
-        // Confirm Password field
         OutlinedTextField(
             value = confirmPassword.value,
             onValueChange = { confirmPassword.value = it },
             label = { Text("Confirm Password") },
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = Modifier
-                .fillMaxWidth(),
-
+            modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(12.dp),
         )
-
         Spacer(modifier = Modifier.height(24.dp))
-
-        // Sign Up button
         Button(
-            onClick = onSignUpClick,
+            onClick = {
+                if (password == confirmPassword.value) {
+                    viewModel.register()
+                } else {
+                    viewModel.onPasswordChange("")
+                }
+            },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 50.dp), // Optional: to add some space from the sides
+                .padding(horizontal = 50.dp),
             colors = androidx.compose.material3.ButtonDefaults.buttonColors(
                 containerColor = Color(0xFFD8C4E6))
         ) {
             Text("Sign Up")
         }
-
         Spacer(modifier = Modifier.height(16.dp))
-
-        // Login prompt
+        if (uiState.error != null) {
+            Text(
+                text = uiState.error ?: "",
+                color = Color.Red,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+        }
+        if (uiState.successMessage != null) {
+            Text(
+                text = uiState.successMessage ?: "",
+                color = Color.Green,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+        }
         TextButton(
             onClick = { navController.navigate("login") },
             modifier = Modifier.fillMaxWidth()

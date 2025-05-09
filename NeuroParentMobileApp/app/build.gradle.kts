@@ -88,11 +88,11 @@ dependencies {
     // Kotlin components
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${libs.versions.kotlin.get()}")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
 
 //    
-    implementation ("com.google.code.gson:gson:2.8.8")
+    implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
 //    Navigation
@@ -112,12 +112,12 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 
     implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.7.1")
+    kapt("androidx.room:room-compiler:2.7.1")
     implementation("androidx.room:room-paging:2.6.1")
-    implementation("androidx.paging:paging-runtime-ktx:3.2.0")
-    implementation("androidx.paging:paging-compose:3.2.0")
-    implementation("androidx.paging:paging-common-ktx:3.2.0")
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.paging:paging-runtime-ktx:3.3.6")
+    implementation("androidx.paging:paging-compose:3.3.6")
+    implementation("androidx.paging:paging-common-ktx:3.3.6")
+    implementation("androidx.datastore:datastore-preferences:1.1.6")
 
 }

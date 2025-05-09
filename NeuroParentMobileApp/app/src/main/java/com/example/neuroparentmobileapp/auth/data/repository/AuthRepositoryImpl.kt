@@ -6,6 +6,7 @@ import com.example.neuroparentmobileapp.auth.data.remote.dto.LoginRequest
 import com.example.neuroparentmobileapp.auth.data.remote.dto.RegisterRequest
 import com.example.neuroparentmobileapp.auth.domain.model.AuthUser
 import com.example.neuroparentmobileapp.auth.domain.repository.AuthRepository
+import javax.inject.Inject
 
 sealed class Resource<out T> {
     data class Success<T>(val data: T): Resource<T>()
@@ -13,7 +14,7 @@ sealed class Resource<out T> {
     object Loading : Resource<Nothing>()
 }
 
-class AuthRepositoryImpl(
+class AuthRepositoryImpl @Inject constructor(
     private val apiService: AuthApiService,
     private val preferences: AuthPreferences
 ) : AuthRepository {

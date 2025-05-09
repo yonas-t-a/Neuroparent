@@ -12,6 +12,10 @@ import com.example.neuroparentmobileapp.core.navigation.NavigationManager
 import com.example.neuroparentmobileapp.ui.theme.NeuroParentMobileAppTheme
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.flow.collectLatest
+import com.example.neuroparentmobileapp.auth.data.local.AuthPreferences
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.platform.LocalContext
 
 //@HiltAndroidApp
 class MainActivity : ComponentActivity() {
@@ -20,6 +24,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             val navigationManager = remember { NavigationManager() }
+            val context = LocalContext.current
+            val authPreferences = remember { AuthPreferences(context) }
+            val token by authPreferences.token.collectAsState(initial = null)
+            val isAuthenticated = token != null
 
             LaunchedEffect(Unit) {
                 navigationManager.commands.collectLatest { command ->
@@ -37,7 +45,8 @@ class MainActivity : ComponentActivity() {
             NeuroParentMobileAppTheme {
                 AppNavHost(
                     navController = navController,
-                    navigationManager = navigationManager
+                    navigationManager = navigationManager,
+                    isAuthenticated = isAuthenticated
                 )
             }
         }

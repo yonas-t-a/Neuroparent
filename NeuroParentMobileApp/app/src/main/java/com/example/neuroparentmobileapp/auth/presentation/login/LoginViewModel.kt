@@ -5,9 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.neuroparentmobileapp.auth.domain.usecase.LoginUseCase
 import com.example.neuroparentmobileapp.auth.domain.usecase.ValidateCredentialsUseCase
 import com.example.neuroparentmobileapp.auth.data.repository.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 // UI State for Login
 // Expose token instead of user object
@@ -17,10 +19,11 @@ data class LoginUiState(
     val password: String = "",
     val isLoading: Boolean = false,
     val error: String? = null,
-    val token: String? = null
+    val token: String? = null,
+    val role: String? = null
 )
-
-class LoginViewModel(
+@HiltViewModel
+class LoginViewModel  @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val validateCredentials: ValidateCredentialsUseCase
 ) : ViewModel() {
@@ -46,8 +49,13 @@ class LoginViewModel(
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
             when (val result = loginUseCase(email, password)) {
                 is Resource.Success -> {
-                    // Assume token is saved in preferences, but for UI, expose token from result if available
-                    _uiState.value = _uiState.value.copy(isLoading = false, token = result.data?.let { it.email }, error = null)
+                    // Assume token is saved in preferences, but for UI, expose token and role from result if available
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        token = result.data?.let { it.email },
+                        role = result.data?.role,
+                        error = null
+                    )
                 }
                 is Resource.Error -> {
                     _uiState.value = _uiState.value.copy(isLoading = false, error = result.message)

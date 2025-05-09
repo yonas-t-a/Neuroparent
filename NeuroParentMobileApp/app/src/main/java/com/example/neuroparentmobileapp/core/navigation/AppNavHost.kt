@@ -24,72 +24,74 @@ import com.example.neuroparentmobileapp.user.presentation.events.UserEventsScree
 import com.example.neuroparentmobileapp.user.presentation.home.EditProfileScreen
 import com.example.neuroparentmobileapp.user.presentation.home.HomeScreen
 import com.example.neuroparentmobileapp.user.presentation.home.ProfileScreen
-
+//import com.example.neuroparentmobileapp.core.Screen
+//import androidx.compose.runtime.getValue
+//import androidx.compose.runtime.collectAsState
 
 @Composable
-fun AppNavHost(navController: NavController, navigationManager: NavigationManager) {
+fun AppNavHost(
+    navController: NavController,
+    navigationManager: NavigationManager,
+    isAuthenticated: Boolean
+) {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "Adminhomescreen") {
-        composable("login") {
+    NavHost(navController = navController, startDestination = Screen.Login.route) {
+        composable(Screen.Login.route) {
             Login(navController = navController)
         }
-        composable("signup") {
+        composable(Screen.SignUp.route) {
             SignUp(navController = navController)
         }
-        composable("Eventsscreen") {
-            EventsScreen(navController = navController)
-        }
-        composable("Homescreen"){
-            HomeScreen(navController = navController)
-        }
-        composable("Userevents"){
-            UserEventsScreen(navController = navController)
-        }
-        composable("Usereditprofile"){
-            EditProfileScreen(navController = navController)
-        }
-        composable("Userprofile"){
-            ProfileScreen(navController = navController)
-        }
-        composable("Adminaddevent"){
-            CreateEventScreen(navController = navController)
-
-        }
-        composable("Admineditevent"){
-            EditEventScreen(navController = navController)
-
-        }
-        composable("Adminaddedit"){
-            AddEdit(navController = navController)
-
-        }
-        composable("Adminevents") {
-            AdminEventsScreen(navController = navController)
-        }
-        composable("Adminprofile") {
-            AdminProfile(navController = navController)
-
-        }
-        composable("Admineditprofile") {
-            AdminEditProfile(navController = navController)
-
-        }
-
-        composable("Admineditarticle") {
-            EditArticleScreen(navController = navController)
-        }
-        composable("Admincreatearticle") {
-            CreateArticleScreen(navController = navController)
-        }
-        composable("AdminHomeScreen") {
-            AdminHomeScreen(navController = navController)
-        }
-        composable ("AdminAllEvent") {
-            AdminAllEvent(navController = navController)
+        // Protected routes
+        if (isAuthenticated) {
+            composable(Screen.Eventsscreen.route) {
+                EventsScreen(navController = navController)
+            }
+            composable(Screen.Homescreen.route){
+                HomeScreen(navController = navController)
+            }
+            composable(Screen.Userevents.route){
+                UserEventsScreen(navController = navController)
+            }
+            composable(Screen.Usereditprofile.route){
+                EditProfileScreen(navController = navController)
+            }
+            composable(Screen.Userprofile.route){
+                ProfileScreen(navController = navController)
+            }
+            composable(Screen.Adminaddevent.route){
+                CreateEventScreen(navController = navController)
+            }
+            composable(Screen.Admineditevent.route){
+                EditEventScreen(navController = navController)
+            }
+            composable(Screen.Adminaddedit.route){
+                AddEdit(navController = navController)
+            }
+            composable(Screen.Adminevents.route) {
+                AdminEventsScreen(navController = navController)
+            }
+            composable(Screen.Adminprofile.route) {
+                AdminProfile(navController = navController)
+            }
+            composable(Screen.Admineditprofile.route) {
+                AdminEditProfile(navController = navController)
+            }
+            composable(Screen.Admineditarticle.route) {
+                EditArticleScreen(navController = navController)
+            }
+            composable(Screen.AdminCreatearticle.route) {
+                CreateArticleScreen(navController = navController)
+            }
+            composable(Screen.Adminhomescreen.route) {
+                AdminHomeScreen(navController = navController)
+            }
+            composable(Screen.Adminallevent.route) {
+                AdminAllEvent(navController = navController)
+            }
         }
     }
-
 }
 
 @Preview(showBackground = true)
@@ -98,6 +100,6 @@ fun DefaultPreview() {
     val navController = rememberNavController()
     val navigationManager = NavigationManager()
     MaterialTheme {
-        AppNavHost(navController = navController , navigationManager = NavigationManager())
+        AppNavHost(navController = navController , navigationManager = NavigationManager(), isAuthenticated = false)
     }
 }
