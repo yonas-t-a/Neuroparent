@@ -22,6 +22,7 @@ fun AdminEventDto.toDomain(): AdminEvent = AdminEvent(
     description = event_description,
     date = event_date,
     location = event_location
+    // You can extend AdminEvent to include category, status, etc. if needed
 )
 
 fun AdminEvent.toDto(adminId: Int): AdminEventDto = AdminEventDto(
@@ -29,9 +30,9 @@ fun AdminEvent.toDto(adminId: Int): AdminEventDto = AdminEventDto(
     event_title = name,
     event_description = description,
     event_date = date,
-    event_time = "",
+    event_time = "", // Add if you extend AdminEvent
     event_location = location,
-    event_category = "",
+    event_category = "", // Add if you extend AdminEvent
     creator_id = adminId,
-    event_status = true
+    event_status = true // Default to true
 ) 
