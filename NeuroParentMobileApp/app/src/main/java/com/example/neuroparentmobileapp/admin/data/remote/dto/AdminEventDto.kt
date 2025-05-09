@@ -29,9 +29,9 @@ fun AdminEvent.toDto(adminId: Int): AdminEventDto = AdminEventDto(
     event_title = name,
     event_description = description,
     event_date = date,
-    event_time = "", // Add if you extend AdminEvent
+    event_time = "",
     event_location = location,
-    event_category = "", // Add if you extend AdminEvent
+    event_category = "",
     creator_id = adminId,
-    event_status = true // Default to true
+    event_status = true
 ) 
