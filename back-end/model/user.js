@@ -10,6 +10,12 @@ const userModel = {
         return rows[0];
     },
 
+    // get user by email
+    async getUserByEmail(email) {
+        const [rows] = await pool.query('SELECT * FROM user WHERE email = ?', [email]);
+        return rows[0];
+    },
+
     async createUser(user) {
         const [result] = await pool.query('INSERT INTO user SET ?', [user]);
         return result;

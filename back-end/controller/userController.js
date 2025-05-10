@@ -20,6 +20,19 @@ export async function getUserById (req,res){
         res.status(500).json({ error: "Error fetching user" });
     }
 }
+// get user by email
+export async function getUserByEmail (req,res){
+    const { email } = req.params;
+    try {
+        const user = await userModel.getUserByEmail(email);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ error: "Error fetching user" });
+    }
+}
 export async function createUser (req,res){
     // Validate the request body
     const { name, email, password } = req.body;

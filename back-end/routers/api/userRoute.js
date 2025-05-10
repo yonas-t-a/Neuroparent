@@ -1,7 +1,8 @@
 import express from 'express';
 import {
     getUser, 
-    getUserById, 
+    getUserById,
+    getUserByEmail, 
     createUser, 
     updateUser, 
     deleteUser
@@ -13,6 +14,7 @@ const router = express.Router();
 
 router.get('/', authenticate, authorizeRoles('admin'), getUser);
 router.get('/:id', authenticate, getUserById);
+router.get('/:email', authenticate, getUserByEmail);
 router.post('/', authenticate , createUser);
 router.put('/:id', authenticate , updateUser);
 router.delete('/:id', authenticate, authorizeRoles('admin'), deleteUser);
