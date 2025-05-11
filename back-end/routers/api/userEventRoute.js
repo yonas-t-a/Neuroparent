@@ -4,7 +4,8 @@ import {
   getUserEventById,
   createUserEvent,
   updateUserEvent,
-  deleteUserEvent
+  deleteUserEvent,
+  getUserEventByUserId,
 } from '../../controller/userEventController.js';
 
 import { authenticate } from '../../middleware/authMiddleware.js';

@@ -6,6 +6,7 @@ import {
     updateArticle,
     deleteArticle,
     getArticleByCategory,
+    getArticleByCreatorId
 } from '../../controller/articleController.js';
 
 import { authenticate, authorizeRoles } from '../../middleware/authMiddleware.js';
