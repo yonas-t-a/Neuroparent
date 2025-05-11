@@ -8,7 +8,6 @@ import {
   getUserEventByUserId,
 } from '../../controller/userEventController.js';
 
-import { authenticate } from '../../middleware/authMiddleware.js';
 
 const router = express.Router();
 

@@ -9,7 +9,6 @@ import {
     getArticleByCreatorId
 } from '../../controller/articleController.js';
 
-import { authenticate, authorizeRoles } from '../../middleware/authMiddleware.js';
 import upload from '../../middleware/uploadMiddleware.js';
 
 const router = express.Router();

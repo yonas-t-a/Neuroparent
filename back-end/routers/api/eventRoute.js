@@ -11,7 +11,6 @@ import {
     getEventByCreatorId,
 } from '../../controller/eventController.js';
 
-import { authenticate, authorizeRoles } from '../../middleware/authMiddleware.js';
 
 const router = express.Router();
 
