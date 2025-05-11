@@ -15,19 +15,19 @@ const router = express.Router();
 
 // Public routes (accessible by all authenticated users)
 router.route('/')
-    .get(authenticate, getArticle);
+    .get(getArticle);
 
 // Admin-only routes
 router.route('/')
-    .post(authenticate, authorizeRoles('admin'), upload.single('img'), createArticle);
+    .post(upload.single('img'), createArticle);
 
 router.route('/:id')
-    .get(authenticate, getArticleById)
-    .put(authenticate, authorizeRoles('admin'), upload.single('img'), updateArticle)
-    .delete(authenticate, authorizeRoles('admin'), deleteArticle);
+    .get(getArticleById)
+    .put(updateArticle)
+    .delete(deleteArticle);
 
 // Public route: filter articles by category
 router.route('/category/:category')
-    .get(authenticate, getArticleByCategory);
+    .get(getArticleByCategory);
 
 export default router;

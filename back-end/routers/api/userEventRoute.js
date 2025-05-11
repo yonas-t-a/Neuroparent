@@ -13,12 +13,12 @@ const router = express.Router();
 
 // All routes are protected — only logged-in users can use them
 router.route('/')
-    .get(authenticate, getUserEvent) 
-    .post(authenticate, createUserEvent);
+    .get(getUserEvent) 
+    .post(createUserEvent);
 
 router.route('/:id')
-    .get(authenticate, getUserEventById) 
-    .put(authenticate, updateUserEvent) 
-    .delete(authenticate, deleteUserEvent);
+    .get(getUserEventById) 
+    .put(updateUserEvent) 
+    .delete(deleteUserEvent);
 
 export default router;

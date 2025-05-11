@@ -14,23 +14,23 @@ import { authenticate, authorizeRoles } from '../../middleware/authMiddleware.js
 
 const router = express.Router();
 
-// Public: All users can view events
+
 router.route('/')
     .get(getEvent) 
-    .post(authenticate, authorizeRoles('admin'), createEvent); // Only admin
+    .post(createEvent); 
 
 router.route('/:id')
     .get(getEventById) 
-    .put(authenticate, authorizeRoles('admin'), updateEvent)   // Only admin
-    .delete(authenticate, authorizeRoles('admin'), deleteEvent); // Only admin
+    .put(updateEvent)     
+    .delete(deleteEvent); 
 
 router.route('/category/:category')
-    .get(getEventByCategory); // All user
+    .get(getEventByCategory); 
 
 router.route('/date/:date')
-    .get(getEventByDate); // All user
+    .get(getEventByDate); 
 
 router.route('/location/:location')
-    .get(getEventByLocation); // All user
+    .get(getEventByLocation); 
 
 export default router;
