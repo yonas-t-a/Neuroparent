@@ -25,7 +25,13 @@ export async function login(req, res) {
             { expiresIn: '1d' }
         );
         
-        res.status(200).json({ token });
+        res.status(200).json({
+            token,
+            user: {
+                id: user.user_id,
+                role: user.role
+            }
+        });
     } catch (error) {
         res.status(500).json({ error: "Login failed" });
     }
