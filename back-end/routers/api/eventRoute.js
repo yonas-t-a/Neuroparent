@@ -7,7 +7,8 @@ import {
   deleteEvent,
   getEventByCategory,
   getEventByDate,
-  getEventByLocation
+  getEventByLocation,
+    getEventByCreatorId,
 } from '../../controller/eventController.js';
 
 import { authenticate, authorizeRoles } from '../../middleware/authMiddleware.js';
