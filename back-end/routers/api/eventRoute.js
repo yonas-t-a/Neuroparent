@@ -32,5 +32,7 @@ router.route('/date/:date')
 
 router.route('/location/:location')
     .get(getEventByLocation); 
+router.route('/creator/:creator_id')
+    .get(getEventByCreatorId);
 
 export default router;

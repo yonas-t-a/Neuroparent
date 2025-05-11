@@ -99,3 +99,15 @@ export async function getEventByLocation(req, res) {
         res.status(500).json({ error: "Error fetching events by location" });
     }
 }
+export async function getEventByCreatorId(req, res) {
+    const { creator_id } = req.params;
+    try {
+        const events = await eventModel.getEventByCreatorId(creator_id);
+        if (events.length === 0) {
+            return res.status(404).json({ error: "No events found for this creator" });
+        }
+        res.status(200).json(events);
+    } catch (error) {
+        res.status(500).json({ error: "Error fetching events by creator ID" });
+    }
+}

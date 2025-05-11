@@ -34,6 +34,10 @@ const eventModel = {
     async getEventByLocation(location) {
         const [rows] = await pool.query('SELECT * FROM event WHERE event_location = ?', [location]);
         return rows;
-    }
+    },
+    async getEventByCreatorId(creator_id) {
+        const [rows] = await pool.query('SELECT * FROM event WHERE event_creator_id = ?', [creator_id]);
+        return rows;
+    },
 };
 export default eventModel;
