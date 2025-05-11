@@ -39,5 +39,10 @@ const eventModel = {
         const [rows] = await pool.query('SELECT * FROM event WHERE event_creator_id = ?', [creator_id]);
         return rows;
     },
+    // search event by name
+    async searchEventByName(name) {
+        const [rows] = await pool.query('SELECT * FROM event WHERE event_name LIKE ?', [`%${name}%`]);
+        return rows;
+    },
 };
 export default eventModel;

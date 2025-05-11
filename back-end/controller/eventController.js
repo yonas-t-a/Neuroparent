@@ -111,3 +111,15 @@ export async function getEventByCreatorId(req, res) {
         res.status(500).json({ error: "Error fetching events by creator ID" });
     }
 }
+export async function searchEventByName(req, res) {
+    const { name } = req.params;
+    try {
+        const events = await eventModel.searchEventByName(name);
+        if (events.length === 0) {
+            return res.status(404).json({ error: "No events found with this name" });
+        }
+        res.status(200).json(events);
+    } catch (error) {
+        res.status(500).json({ error: "Error searching events by name" });
+    }
+}

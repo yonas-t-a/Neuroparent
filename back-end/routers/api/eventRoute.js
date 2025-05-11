@@ -34,5 +34,6 @@ router.route('/location/:location')
     .get(getEventByLocation); 
 router.route('/creator/:creator_id')
     .get(getEventByCreatorId);
-
+router.route('/search/:name')
+    .get(getEventByCategory);
 export default router;
