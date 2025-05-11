@@ -1,64 +1,58 @@
 package com.example.neuroparentmobileapp.auth.presentation.signup
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.neuroparentmobileapp.auth.domain.usecase.RegisterUseCase
-import com.example.neuroparentmobileapp.auth.domain.usecase.ValidateCredentialsUseCase
-import com.example.neuroparentmobileapp.auth.data.repository.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-// UI State for Sign Up
-data class SignUpUiState(
-    val name: String = "",
-    val email: String = "",
-    val password: String = "",
-    val isLoading: Boolean = false,
-    val error: String? = null,
-    val successMessage: String? = null
-)
-
 class SignUpViewModel(
-    private val registerUseCase: RegisterUseCase,
-    private val validateCredentials: ValidateCredentialsUseCase
+    private val registerUseCase: RegisterUseCase
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(SignUpUiState())
-    val uiState: StateFlow<SignUpUiState> = _uiState
+    private val _name = MutableStateFlow("")
+    val name: StateFlow<String> = _name
 
-    fun onNameChange(name: String) {
-        _uiState.value = _uiState.value.copy(name = name, error = null)
-    }
+    private val _email = MutableStateFlow("")
+    val email: StateFlow<String> = _email
 
-    fun onEmailChange(email: String) {
-        _uiState.value = _uiState.value.copy(email = email, error = null)
-    }
+    private val _password = MutableStateFlow("")
+    val password: StateFlow<String> = _password
 
-    fun onPasswordChange(password: String) {
-        _uiState.value = _uiState.value.copy(password = password, error = null)
-    }
+    private val _loading = MutableStateFlow(false)
+    val loading: StateFlow<Boolean> = _loading
 
-    fun register() {
-        val name = _uiState.value.name
-        val email = _uiState.value.email
-        val password = _uiState.value.password
-        if (name.isBlank() || !validateCredentials(email, password)) {
-            _uiState.value = _uiState.value.copy(error = "Invalid name, email, or password")
-            return
-        }
+    private val _error = MutableStateFlow<String?>(null)
+    val error: StateFlow<String?> = _error
+
+    fun onNameChange(value: String) { _name.value = value }
+    fun onEmailChange(value: String) { _email.value = value }
+    fun onPasswordChange(value: String) { _password.value = value }
+
+    fun signUp(onSuccess: () -> Unit) {
         viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoading = true, error = null, successMessage = null)
-            when (val result = registerUseCase(name, email, password)) {
-                is Resource.Success -> {
-                    _uiState.value = _uiState.value.copy(isLoading = false, successMessage = "Registration successful!", error = null)
-                }
-                is Resource.Error -> {
-                    _uiState.value = _uiState.value.copy(isLoading = false, error = result.message)
-                }
-                is Resource.Loading -> {
-                    _uiState.value = _uiState.value.copy(isLoading = true)
-                }
+            _loading.value = true
+            _error.value = null
+            val result = registerUseCase(name.value, email.value, password.value)
+            result.onSuccess {
+                onSuccess()
+            }.onFailure {
+                _error.value = it.message
             }
+            _loading.value = false
         }
     }
 }
+
+class SignUpViewModelFactory(
+    private val registerUseCase: RegisterUseCase
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(SignUpViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return SignUpViewModel(registerUseCase) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+} 

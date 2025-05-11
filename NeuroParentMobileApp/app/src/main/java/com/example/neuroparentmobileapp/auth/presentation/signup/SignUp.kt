@@ -49,22 +49,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun SignUp(
     navController: NavController,
-    viewModel: SignUpViewModel = viewModel()
+    viewModel: SignUpViewModel = viewModel(),
+    onSignUpSuccess: () -> Unit
 ) {
-    val uiState by viewModel.uiState.collectAsState()
-    val name = uiState.name
-    val email = uiState.email
-    val password = uiState.password
-    val confirmPassword = remember { mutableStateOf("") }
+    val name = viewModel.name.collectAsState().value
+    val email = viewModel.email.collectAsState().value
+    val password = viewModel.password.collectAsState().value
+    val loading = viewModel.loading.collectAsState().value
+    val error = viewModel.error.collectAsState().value
 
-    // Navigate to login on successful registration
-    LaunchedEffect(uiState.successMessage) {
-        if (uiState.successMessage != null) {
-            navController.navigate("login") {
-                popUpTo("signup") { inclusive = true }
-            }
-        }
-    }
 
     Column(
         modifier = Modifier
@@ -88,7 +81,7 @@ fun SignUp(
         )
         OutlinedTextField(
             value = name,
-            onValueChange = { viewModel.onNameChange(it) },
+            onValueChange = viewModel::onNameChange,
             label = { Text("Name") },
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(12.dp),
@@ -96,7 +89,7 @@ fun SignUp(
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = email,
-            onValueChange = { viewModel.onEmailChange(it) },
+            onValueChange = viewModel::onEmailChange,
             label = { Text("Email") },
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(12.dp),
@@ -105,55 +98,36 @@ fun SignUp(
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = password,
-            onValueChange = { viewModel.onPasswordChange(it) },
+            onValueChange = viewModel::onPasswordChange,
             label = { Text("Password") },
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(12.dp),
         )
-        Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(
-            value = confirmPassword.value,
-            onValueChange = { confirmPassword.value = it },
-            label = { Text("Confirm Password") },
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(12.dp),
-        )
+//        Spacer(modifier = Modifier.height(16.dp))
+//        OutlinedTextField(
+//            value = confirmPassword.value,
+//            onValueChange = { confirmPassword.value = it },
+//            label = { Text("Confirm Password") },
+//            visualTransformation = PasswordVisualTransformation(),
+//            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+//            modifier = Modifier.fillMaxWidth(),
+//            shape = RoundedCornerShape(12.dp),
+//        )
         Spacer(modifier = Modifier.height(24.dp))
         Button(
-            onClick = {
-                if (password == confirmPassword.value) {
-                    viewModel.register()
-                } else {
-                    viewModel.onPasswordChange("")
-                }
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 50.dp),
-            colors = androidx.compose.material3.ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFD8C4E6))
+            onClick = { viewModel.signUp(onSignUpSuccess) },
+            enabled = !loading,
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Sign Up")
+            Text(if (loading) "Signing Up..." else "Sign Up")
+        }
+        error?.let {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(it, color = MaterialTheme.colorScheme.error)
         }
         Spacer(modifier = Modifier.height(16.dp))
-        if (uiState.error != null) {
-            Text(
-                text = uiState.error ?: "",
-                color = Color.Red,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-        }
-        if (uiState.successMessage != null) {
-            Text(
-                text = uiState.successMessage ?: "",
-                color = Color.Green,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-        }
         TextButton(
             onClick = { navController.navigate("login") },
             modifier = Modifier.fillMaxWidth()

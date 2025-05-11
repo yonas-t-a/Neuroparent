@@ -39,9 +39,9 @@ import com.example.neuroparentmobileapp.shared.components.navigation.BottomNavig
 
 @Composable
 fun ProfileScreen(navController : NavController) {
-    var name by remember { mutableStateOf("Abebe Girma Thomas") }
-    var email by remember { mutableStateOf("abebe.girma@gmail.com") }
-    var password by remember { mutableStateOf("************") }
+    var name by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
 
     val bottomNavItems = listOf(
         BottomNavItem.Home,
@@ -152,6 +152,10 @@ fun ProfileScreen(navController : NavController) {
             ) {
                 Text(text = "Edit Profile")
             }
+//            Spacer(modifier = Modifier.height(24.dp))
+//            Button(onClick = onLogout) {
+//                Text("Logout")
+//            }
         }
     }
 }
