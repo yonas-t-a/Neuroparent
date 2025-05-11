@@ -35,6 +35,10 @@ const articleModel = {
     async getArticleByCategory(category) {
         const [rows] = await pool.query('SELECT * FROM article WHERE article_category = ?', [category]);
         return rows;
-    }
+    },
+    async getArticleByCreatorId(creator_id) {
+        const [rows] = await pool.query('SELECT * FROM article WHERE article_creator_id = ?', [creator_id]);
+        return rows;
+    },
 };
 export default articleModel;

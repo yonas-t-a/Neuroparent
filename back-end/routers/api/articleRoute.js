@@ -30,4 +30,8 @@ router.route('/:id')
 router.route('/category/:category')
     .get(getArticleByCategory);
 
+// get article by creator id
+router.route('/creator/:creator_id')
+    .get(getArticleByCreatorId);
+
 export default router;

@@ -24,6 +24,12 @@ const userEventModel = {
     async deleteUserEvent(id) {
         const [result] = await pool.query('DELETE FROM user_event WHERE user_event_id = ?', [id]);
         return result;
+    },
+    // get user event by user id
+    async getUserEventByUserId(user_id) {
+        const [rows] = await pool.query('SELECT * FROM user_event WHERE user_id = ?', [user_id]);
+        return rows;
     }
+
 };
 export default userEventModel;

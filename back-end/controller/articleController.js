@@ -88,3 +88,15 @@ export async function getArticleByCategory(req, res) {
         res.status(500).json({ error: "Error fetching articles by category" });
     }
 }
+export async function getArticleByCreatorId(req, res) {
+    const { creator_id } = req.params;
+    try {
+        const articles = await articleModel.getArticleByCreatorId(creator_id);
+        if (articles.length === 0) {
+            return res.status(404).json({ error: "No articles found for this creator" });
+        }
+        res.status(200).json(articles);
+    } catch (error) {
+        res.status(500).json({ error: "Error fetching articles by creator ID" });
+    }
+}
