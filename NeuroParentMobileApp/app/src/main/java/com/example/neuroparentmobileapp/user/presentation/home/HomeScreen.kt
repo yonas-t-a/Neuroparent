@@ -34,7 +34,6 @@ fun HomeScreen(navController: NavController) {
         BottomNavItem.Edit,
         BottomNavItem.Profile
     )
-
     val currentRoute = navController.currentDestination?.route ?: BottomNavItem.Calendar.route
     Scaffold(
         bottomBar = {

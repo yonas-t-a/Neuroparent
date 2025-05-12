@@ -20,6 +20,22 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// Logging middleware
+app.use((req, res, next) => {
+    console.log(`Incoming Request: ${req.method} ${req.url}`);
+    console.log(`Headers:`, req.headers);
+    console.log(`Body:`, req.body);
+
+    // Capture the response status and log it after the response is sent
+    const originalSend = res.send;
+    res.send = function (body) {
+        console.log(`Response Status: ${res.statusCode}`);
+        console.log(`Response Body:`, body);
+        originalSend.call(this, body);
+    };
+
+    next();
+});
 
 app.use(cors());
 app.use('/images', express.static('public/images'));

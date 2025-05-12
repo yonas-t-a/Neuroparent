@@ -1,3 +1,17 @@
+// CREATE TABLE IF NOT EXISTS event(
+//     event_id INT AUTO_INCREMENT PRIMARY KEY,
+//     event_title VARCHAR(255) NOT NULL,
+//     event_description TEXT NOT NULL,
+//     event_date DATE NOT NULL,
+//     event_time TIME NOT NULL,
+//     event_location VARCHAR(255) NOT NULL,
+//     event_category VARCHAR(100) NOT NULL,
+//     creator_id INT,
+//     event_status BOOLEAN DEFAULT TRUE,
+//     FOREIGN KEY (creator_id) REFERENCES user(user_id)
+//         ON DELETE CASCADE
+//         ON UPDATE CASCADE
+// );
 import { pool } from '../database.js';
 const eventModel = {
     async getEvent() {
@@ -36,12 +50,12 @@ const eventModel = {
         return rows;
     },
     async getEventByCreatorId(creator_id) {
-        const [rows] = await pool.query('SELECT * FROM event WHERE event_creator_id = ?', [creator_id]);
+        const [rows] = await pool.query('SELECT * FROM event WHERE creator_id = ?', [creator_id]);
         return rows;
     },
     // search event by name
     async searchEventByName(name) {
-        const [rows] = await pool.query('SELECT * FROM event WHERE event_name LIKE ?', [`%${name}%`]);
+        const [rows] = await pool.query('SELECT * FROM event WHERE event_title LIKE ?', [`%${name}%`]);
         return rows;
     },
 };

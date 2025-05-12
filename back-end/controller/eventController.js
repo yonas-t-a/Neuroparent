@@ -22,16 +22,16 @@ export async function getEventById(req, res) {
     }
 }
 export async function createEvent(req, res) {
-    // Validate the request body
-    const { title, description, date, time, location, category } = req.body;
-    if (!title || !description || !date || !time || !location || !category) {
-        return res.status(400).json({ error: "All fields are required" });
+    // Validate the request body, 
+    const {event_title, event_description, event_date, event_time, event_location, event_category, creator_id} = req.body;
+    if (!event_title || !event_description || !event_date || !event_time || !event_location || !event_category || !creator_id) {
+        return res.status(400).json({ error: `All fields are required ${error.message}` });
     }
     try {
         const newEvent = await eventModel.createEvent(req.body);
         res.status(201).json(newEvent);
     } catch (error) {
-        res.status(500).json({ error: "Error creating event" });
+        res.status(500).json({ error: `Error creating event ${error.message}` });
     }
 }
 export async function updateEvent(req, res) {
@@ -108,7 +108,7 @@ export async function getEventByCreatorId(req, res) {
         }
         res.status(200).json(events);
     } catch (error) {
-        res.status(500).json({ error: "Error fetching events by creator ID" });
+        res.status(500).json({ error: `Error fetching events by creator ID ${error.message}` });
     }
 }
 export async function searchEventByName(req, res) {
