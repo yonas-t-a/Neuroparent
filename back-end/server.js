@@ -29,7 +29,7 @@ setUpDatabase()
     });
 
 
-// Backend routes.
+// Backend routes
 app.use('/api/articles', articleRoute);
 app.use('/api/userEvents', userEventRoute);
 app.use('/api/users', userRoute);
