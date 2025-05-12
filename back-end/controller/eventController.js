@@ -37,9 +37,9 @@ export async function createEvent(req, res) {
 export async function updateEvent(req, res) {
     // Validate the request body
     const { id } = req.params;
-    const { title, description, date, time, location, category } = req.body;
-    if (!title || !description || !date || !time || !location || !category) {
-        return res.status(400).json({ error: "All fields are required" });
+   const {event_title, event_description, event_date, event_time, event_location, event_category, event_status} = req.body;
+       if (!event_title || !event_description || !event_date || !event_time || !event_location || !event_category || !event_status) {
+        return res.status(400).json({ error: `All fields are required ${error.message}` });
     }
     try {
         const updatedEvent = await eventModel.updateEvent(id, req.body);
@@ -48,7 +48,7 @@ export async function updateEvent(req, res) {
         }
         res.status(200).json(updatedEvent);
     } catch (error) {
-        res.status(500).json({ error: "Error updating event" });
+        res.status(500).json({ error: `Error updating event ${error.message}` });
     }
 }
 export async function deleteEvent(req, res) {
