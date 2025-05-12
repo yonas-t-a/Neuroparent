@@ -33,6 +33,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.neuroparentmobileapp.auth.data.repository.TokenManager
 import com.example.neuroparentmobileapp.shared.components.navigation.BottomNavItem
 import com.example.neuroparentmobileapp.shared.components.navigation.BottomNavigationBar
 
@@ -95,7 +96,24 @@ fun ProfileScreen(navController : NavController) {
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
-
+            Button(
+                onClick = {
+                    // Clear token and navigate to login screen
+                    val context = navController.context
+                    val tokenManager = TokenManager(context)
+                    tokenManager.forgetToken(tokenManager)
+                    navController.navigate("login") {
+                        popUpTo(0) { inclusive = true }
+                    }
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF93ADD4)),
+                shape = RoundedCornerShape(20.dp),
+                modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .height(45.dp)
+            ) {
+                Text(text = "Logout")
+            }
             Spacer(modifier = Modifier.height(24.dp))
 
             // Name Field

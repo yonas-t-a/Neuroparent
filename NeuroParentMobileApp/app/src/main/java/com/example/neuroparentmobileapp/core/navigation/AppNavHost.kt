@@ -2,12 +2,14 @@ package com.example.neuroparentmobileapp.core.navigation
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.compose.runtime.getValue
 import com.example.neuroparentmobileapp.admin.presentation.Profile.AdminEditProfile
 import com.example.neuroparentmobileapp.admin.presentation.Profile.AdminProfile
 import com.example.neuroparentmobileapp.admin.presentation.articles.CreateArticleScreen
@@ -32,8 +34,14 @@ import com.example.neuroparentmobileapp.user.presentation.home.ProfileScreen
 @Composable
 fun AppNavHost(navController: NavHostController, navigationManager: NavigationManager, loginUseCase: LoginUseCase,
                tokenManager: TokenManager) {
+    // Check if user is authenticated
+    val token by tokenManager.token.collectAsState(initial = null)
+    val isLoggedIn = token != null
 
-    NavHost(navController = navController, startDestination = "login") {
+     NavHost(
+        navController = navController,
+        startDestination = if (isLoggedIn) "Homescreen" else "login"
+    )  {
         composable("login") {
             Login(
                 navController = navController,
