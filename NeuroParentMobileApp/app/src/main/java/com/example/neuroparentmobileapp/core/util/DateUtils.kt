@@ -20,8 +20,5 @@ object DateUtils {
     fun getCurrentDateTime(pattern: String = "yyyy-MM-dd HH:mm:ss"): String {
         return formatDate(Date(), pattern)
     }
-    fun getDaysDifference(startDate: Date, endDate: Date): Long {
-        val diffInMillis = endDate.time - startDate.time
-        return diffInMillis / (1000 * 60 * 60 * 24)
-    }
+    
 }
