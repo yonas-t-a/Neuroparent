@@ -13,14 +13,7 @@ const articleModel = {
     },
 
     async createArticle(article) {
-        const mappedArticle = {
-            article_title: article.title,
-            article_content: article.content,
-            article_category: article.category,
-            article_image: article.img,
-            article_creator_id: article.article_creator_id,
-        };
-        const [result] = await pool.query('INSERT INTO article SET ?',  [mappedArticle]);
+        const [result] = await pool.query('INSERT INTO article SET ?', [article]);
         return result;
     },
 
