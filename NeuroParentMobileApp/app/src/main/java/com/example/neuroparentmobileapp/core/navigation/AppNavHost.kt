@@ -4,6 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -17,6 +18,8 @@ import com.example.neuroparentmobileapp.admin.presentation.events.CreateEventScr
 import com.example.neuroparentmobileapp.admin.presentation.events.EditEventScreen
 import com.example.neuroparentmobileapp.admin.presentation.home.AddEdit
 import com.example.neuroparentmobileapp.admin.presentation.home.AdminHomeScreen
+import com.example.neuroparentmobileapp.auth.data.repository.TokenManager
+import com.example.neuroparentmobileapp.auth.domain.usecase.LoginUseCase
 import com.example.neuroparentmobileapp.auth.presentation.login.Login
 import com.example.neuroparentmobileapp.auth.presentation.signup.SignUp
 import com.example.neuroparentmobileapp.user.presentation.events.EventsScreen
@@ -27,15 +30,30 @@ import com.example.neuroparentmobileapp.user.presentation.home.ProfileScreen
 
 
 @Composable
-fun AppNavHost(navController: NavController, navigationManager: NavigationManager) {
-    val navController = rememberNavController()
+fun AppNavHost(navController: NavHostController, navigationManager: NavigationManager, loginUseCase: LoginUseCase,
+               tokenManager: TokenManager) {
 
-    NavHost(navController = navController, startDestination = "Adminhomescreen") {
+    NavHost(navController = navController, startDestination = "login") {
         composable("login") {
-            Login(navController = navController)
+            Login(
+                navController = navController,
+                loginUseCase = loginUseCase,
+                tokenManager = tokenManager,
+                onSignInSuccess = {
+                    navController.navigate("Homescreen") {
+                        popUpTo("signin") { inclusive = true }
+                    }
+                }
+            )
         }
-        composable("signup") {
-            SignUp(navController = navController)
+        composable("Signup") {
+            SignUp(
+                navController = navController,
+                onSignUpSuccess = {
+                    navController.navigate("login") {
+                        popUpTo("signup") { inclusive = true }}
+                }
+            )
         }
         composable("Eventsscreen") {
             EventsScreen(navController = navController)
@@ -92,12 +110,3 @@ fun AppNavHost(navController: NavController, navigationManager: NavigationManage
 
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    val navController = rememberNavController()
-    val navigationManager = NavigationManager()
-    MaterialTheme {
-        AppNavHost(navController = navController , navigationManager = NavigationManager())
-    }
-}

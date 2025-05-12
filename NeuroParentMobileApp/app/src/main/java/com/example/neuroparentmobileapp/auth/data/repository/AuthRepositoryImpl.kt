@@ -1,44 +1,51 @@
 package com.example.neuroparentmobileapp.auth.data.repository
 
 import com.example.neuroparentmobileapp.auth.data.remote.AuthApiService
-import com.example.neuroparentmobileapp.auth.data.local.AuthPreferences
+
 import com.example.neuroparentmobileapp.auth.data.remote.dto.LoginRequest
 import com.example.neuroparentmobileapp.auth.data.remote.dto.RegisterRequest
-import com.example.neuroparentmobileapp.auth.domain.model.AuthUser
 import com.example.neuroparentmobileapp.auth.domain.repository.AuthRepository
-
-sealed class Resource<out T> {
-    data class Success<T>(val data: T): Resource<T>()
-    data class Error(val message: String): Resource<Nothing>()
-    object Loading : Resource<Nothing>()
-}
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class AuthRepositoryImpl(
-    private val apiService: AuthApiService,
-    private val preferences: AuthPreferences
+    private val api: AuthApiService
 ) : AuthRepository {
-
-    override suspend fun login(email: String, password: String): Resource<AuthUser> {
-        return try {
-         val response = apiService.login(LoginRequest(email, password))
-         preferences.saveToken(response.token)
-            Resource.Success(response.user)
+    override suspend fun register(name: String, email: String, password: String) = withContext(Dispatchers.IO) {
+        try {
+            api.register(RegisterRequest(name, email, password))
+            Result.success(Unit)
         } catch (e: Exception) {
-            Resource.Error(e.message ?: "Unknown error")
+            Result.failure(e)
         }
     }
 
-    override suspend fun register(name: String, email: String, password: String): Resource<AuthUser> {
-        return try {
-        val response = apiService.register(RegisterRequest(name, email, password))
-        preferences.saveToken(response.token)
-            Resource.Success(response.user)
+    override suspend fun login(email: String, password: String) = withContext(Dispatchers.IO) {
+        try {
+            val response = api.login(LoginRequest(email, password))
+            Result.success(response.token)
         } catch (e: Exception) {
-            Resource.Error(e.message ?: "Unknown error")
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun getUserRole(token: String) = withContext(Dispatchers.IO) {
+        try {
+            val parts = token.split(".")
+            if (parts.size == 3) {
+                val payload = android.util.Base64.decode(parts[1], android.util.Base64.DEFAULT)
+                val json = String(payload)
+                val role = Regex("\"role\":\"(.*?)\"").find(json)?.groupValues?.get(1) ?: "user"
+                Result.success(role)
+            } else {
+                Result.success("user")
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 
     override suspend fun logout() {
-        preferences.clearToken()
+        // Clear token from DataStore if needed
     }
 }

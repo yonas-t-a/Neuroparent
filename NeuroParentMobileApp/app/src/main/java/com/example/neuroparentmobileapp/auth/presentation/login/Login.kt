@@ -23,6 +23,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,42 +43,57 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.neuroparentmobileapp.R
 import androidx. navigation. NavController
-
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.neuroparentmobileapp.auth.data.repository.TokenManager
+import com.example.neuroparentmobileapp.auth.domain.usecase.LoginUseCase
 
 @Composable
 fun Login(
-    onLoginClick: () -> Unit = {},
-    onForgotPasswordClick: () -> Unit = {},
-    onSignUpClick: () -> Unit = {},
-    onAdminClick: () -> Unit = {},
-    onUserClick: () -> Unit = {},
-    navController: NavController
+    navController: NavController,
+    loginUseCase: LoginUseCase,
+    tokenManager: TokenManager,
+    onSignInSuccess: () -> Unit
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var selectedUserType by remember { mutableStateOf("Admin") } // "Admin" or "User"
+    val viewModel: LogInViewModel = viewModel(
+        factory = LogInViewModelFactory(loginUseCase, tokenManager)
+    )
+    val email = viewModel.email.collectAsState().value
+    val password = viewModel.password.collectAsState().value
+    val loading = viewModel.loading.collectAsState().value
+    val error = viewModel.error.collectAsState().value
 
-    val roundedShape = RoundedCornerShape(12.dp)
-    val backgroundColor = Color(0xFFF7F6F4) // Hex color #F7F6F4
+//    // Navigate on successful login
+//    LaunchedEffect(uiState.token, uiState.role) {
+//        if (uiState.token != null && uiState.role != null) {
+//            if (uiState.role.equals("user", ignoreCase = true)) {
+//                navController.navigate("HomeScreen") {
+//                    popUpTo("login") { inclusive = true }
+//                }
+//            } else {
+//                navController.navigate("AdminHomeScreen") {
+//                    popUpTo("login") { inclusive = true }
+//                }
+//            }
+//        }
+//    }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(backgroundColor) // Apply background color here
+            .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 32.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         Image(
             painter = painterResource(id = R.drawable.t8),
             contentDescription = "My image description",
             modifier = Modifier.size(150.dp),
             contentScale = ContentScale.Crop
         )
-        // App title
         Text(
             text = "NeuroParent",
             style = MaterialTheme.typography.headlineLarge.copy(
@@ -86,124 +103,76 @@ fun Login(
             modifier = Modifier.padding(bottom = 32.dp),
             color = Color.Black
         )
-
-        // User type selector
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
+//            horizontalA = Arrangement.SpaceEvenly
         ) {
-            FilterChip(
-                selected = selectedUserType == "Admin",
-                onClick = {
-                    selectedUserType = "Admin"
-                    onAdminClick()
-                },
-                label = { Text("Admin") },
-                modifier = Modifier.weight(1f),
-                shape = roundedShape,
-                colors = FilterChipDefaults.filterChipColors(
-                    containerColor = if (selectedUserType == "Admin") {
-                        MaterialTheme.colorScheme.primaryContainer
-                    } else {
-                        Color(0xFFD9D9D9)
-                    }
+
+            Spacer(modifier = Modifier.height(16.dp))
+            OutlinedTextField(
+                value = email,
+                onValueChange = viewModel::onEmailChange,
+                label = { Text("Email") },
+                shape = RoundedCornerShape(16.dp),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            OutlinedTextField(
+                value = password,
+                onValueChange = viewModel::onPasswordChange,
+                label = { Text("Password") },
+                shape = RoundedCornerShape(16.dp),
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+            Button(
+                onClick = { viewModel.LogIn(onSignInSuccess) },
+                enabled = !loading,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 80.dp),
+                shape = RoundedCornerShape(16.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF93ADD4),
+                    contentColor = Color.White
                 )
-            )
-
-            Spacer(modifier = Modifier.width(16.dp))
-
-            FilterChip(
-                selected = selectedUserType == "User",
-                onClick = {
-                    selectedUserType = "User"
-                    onUserClick()
-                },
-                label = { Text("User") },
-                modifier = Modifier.weight(1f),
-                shape = roundedShape,
-                colors = FilterChipDefaults.filterChipColors(
-                    containerColor = if (selectedUserType == "User") {
-                        MaterialTheme.colorScheme.primaryContainer
-                    } else {
-                        Color(0xFFD9D9D9)
-                    }
+            ) {
+                Text(if (loading) "Signing In..." else "Sign In", fontSize = 20.sp)
+            }
+            error?.let {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(it, color = MaterialTheme.colorScheme.error)
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+//        if (uiState.error != null) {
+//            Text(
+//                text = uiState.error ?: "",
+//                color = Color.Red,
+//                modifier = Modifier.padding(bottom = 8.dp)
+//            )
+//        }
+            TextButton(
+                onClick = { navController.navigate("signup") },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = AnnotatedString.Builder().apply {
+                        withStyle(style = SpanStyle(color = Color.Black)) {
+                            append("New to Neuroparent?")
+                        }
+                        withStyle(style = SpanStyle(color = Color.Blue)) {
+                            append("Sign up")
+                        }
+                    }.toAnnotatedString(),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.bodySmall
                 )
-            )
-        }
-
-        // Rest of your UI components...
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Email field
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Email") },
-            shape = roundedShape,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-            modifier = Modifier.fillMaxWidth(),
-
-            )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Password field
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
-            shape = roundedShape,
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = Modifier.fillMaxWidth(),
-
-            )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // Login button
-        Button(
-            onClick = onLoginClick,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 80.dp)
-            ,
-
-
-            shape = roundedShape,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF93ADD4),  // #93ADD4 color
-                contentColor = Color.White  // White text for better contrast
-            )
-
-        ) {
-            Text("Log in", fontSize = 20.sp)
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Forgot password link
-
-
-        // Sign up prompt
-        TextButton(
-            onClick = { navController.navigate("signup") },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                text = AnnotatedString.Builder().apply {
-                    withStyle(style = SpanStyle(color = Color.Black)) {
-                        append("New to Neuroparent?")
-                    }
-                    withStyle(style = SpanStyle(color = Color.Blue)) {
-                        append("Sign up")
-                    }
-                }.toAnnotatedString(),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodySmall
-            )
+            }
         }
     }
 }
